@@ -1,0 +1,78 @@
+# CLAUDE.md
+
+Guidance for Claude Code when working in this repository.
+
+## Project
+
+**Cooking with Shabba** — a single-page luxury landing page for a Caribbean private
+dining brand (Gloucester, UK; transitioning into high-end private dining). The site's
+one job is to **convert visitors into enquiries**. Domain: cookingwithshabba.co.uk,
+hosted on **Netlify**.
+
+`shabba_PRD.md` is the complete specification (copy, all 14 menu items, palette,
+social URLs, acceptance criteria). Treat it as the source of truth — read it before
+making content or structural changes.
+
+## Stack
+
+Static site. **No frameworks, no build step, no package manager.** Vanilla
+HTML/CSS/JS only. The single external dependency is Google Fonts.
+
+```
+index.html              Single-page site — all 9 sections in order; JSON-LD in <head>
+privacy.html            Placeholder privacy policy (noindex)
+404.html                Branded not-found page
+robots.txt              Crawl rules + sitemap pointer
+sitemap.xml             Single-URL sitemap
+netlify.toml            /privacy → /privacy.html redirect, security headers, asset caching
+assets/css/styles.css   All styling (CSS custom properties at :root)
+assets/js/main.js        Nav scroll, mobile menu, scroll reveal, AJAX form submit, cookie notice
+shabba_PRD.md           Full product spec
+prompt.txt              Original build brief
+```
+
+There is no `assets/images/` yet — gallery, hero, and about images are **Unsplash
+placeholder URLs** to be swapped for real shoot photos.
+
+## Running it
+
+It's a static file — open `index.html` in a browser. No server needed for layout/JS.
+The enquiry form only works once deployed to Netlify (Netlify Forms processes the POST).
+
+## Conventions
+
+- **Design rule above all:** luxury *editorial* — never generic. No predictable
+  hero+subtitle layouts, no equal-padding card grids, no Inter/Roboto/system fonts,
+  no purple gradients, no "Our Services"/"Why Choose Us" sections. Think fine-dining
+  menu meets magazine.
+- **Fonts:** Cormorant Garamond (display/serif) + DM Sans (body). Never substitute.
+- **Palette** (defined as CSS vars in `styles.css` `:root`): bg `#0A0A0A`,
+  bg-alt `#0F0F0F`, surface `#111111`, text `#F5F0E8`, gold `#C9A84C`,
+  muted gold `#8B7236`. No white backgrounds anywhere.
+- **CSS** is plain (no preprocessor). Use the existing custom properties and the
+  `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
+- **Scroll animations:** elements get class `.reveal`; `main.js` adds `.is-visible`
+  via IntersectionObserver with a stagger. Respect `prefers-reduced-motion`.
+- **JS** is a single IIFE in `main.js`, ES5-safe, no dependencies.
+
+## Hard requirements (don't break these)
+
+- **No phone number anywhere** on the site.
+- Enquiry form must keep its Netlify wiring: `data-netlify="true"`,
+  `netlify-honeypot="bot-field"`, the hidden `form-name` input, and the honeypot field.
+  Submission is AJAX (`fetch` POST to `/`) so the inline `#form-success` panel can
+  replace the form without a page reload — keep both in sync if you change field names.
+- Gallery `<img>` tags must keep `class="gallery-img"` so photos can be swapped by
+  filename replacement.
+- All 14 menu items present; HelloFresh section keeps the `[DISCOUNT_CODE]` and
+  `[HELLOFRESH_LINK]` tokens until real values are dropped in.
+- Keep SEO head intact (title, meta description, OG tags, canonical, `lang`, semantic
+  landmarks, `aria-label`s, `loading="lazy"` on below-fold images).
+
+## Pending content (placeholders to replace before go-live)
+
+- `[DISCOUNT_CODE]` and `[HELLOFRESH_LINK]` in the HelloFresh section
+- Hero background, About `<img>`, and 6 gallery images (real photos — shoot 6 Jun 2026)
+- `og:image` (`/assets/og-image.jpg`) — also referenced in the JSON-LD `image` field
+- Favicon + touch icons (deferred to a later session)
+- Testimonials section (deferred to a later session)

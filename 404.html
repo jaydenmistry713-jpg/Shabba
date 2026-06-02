@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found | Cooking with Shabba</title>
+  <meta name="description" content="The page you're looking for has moved or no longer exists." />
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <style>
+    .nf {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem var(--gut) 4rem;
+    }
+    .nf__code {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold);
+      font-size: clamp(5rem, 18vw, 11rem);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+    }
+    .nf__rule {
+      width: 64px; height: 1px;
+      background: var(--gold);
+      margin: 2rem 0;
+    }
+    .nf__title {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      margin-bottom: 1rem;
+    }
+    .nf__text {
+      color: var(--text-mute);
+      max-width: 42ch;
+      margin-bottom: 2.6rem;
+    }
+    .nf__actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .nf__btn {
+      font-size: 0.82rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1rem 2.4rem;
+      border-radius: 1px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      transition: background 0.4s var(--ease), color 0.4s var(--ease);
+    }
+    .nf__btn:hover { background: var(--gold); color: #0A0A0A; }
+    .nf__btn--solid { background: var(--gold); color: #0A0A0A; }
+    .nf__btn--solid:hover { background: transparent; color: var(--gold); }
+  </style>
+</head>
+<body>
+  <main class="nf">
+    <p class="nf__code">404</p>
+    <span class="nf__rule" aria-hidden="true"></span>
+    <h1 class="nf__title">This table isn't set.</h1>
+    <p class="nf__text">The page you're looking for has moved or never existed. Let's get you back to something delicious.</p>
+    <div class="nf__actions">
+      <a class="nf__btn nf__btn--solid" href="/">Return Home</a>
+      <a class="nf__btn" href="/#enquire">Enquire Now</a>
+    </div>
+  </main>
+</body>
+</html>

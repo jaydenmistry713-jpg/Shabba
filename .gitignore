@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Netlify
+.netlify/
+
+# Logs / deps (none expected for this static site)
+node_modules/
+*.log

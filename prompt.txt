@@ -1,0 +1,21 @@
+ Build a single-page luxury landing page for Cooking with Shabba — a Caribbean private dining brand. This is a static HTML/CSS/JS site to be hosted on Netlify. Use the PRD attached as your complete specification.
+The most important rule: do not build a generic website. No predictable hero-with-subtitle layouts, no card grids, no Inter or Roboto fonts, no purple gradients, no "Our Services" or "Why Choose Us" sections. This must feel like a luxury editorial brand — think fine dining menu meets magazine layout.
+Stack: Single index.html + assets/css/styles.css + assets/js/main.js. No frameworks. No libraries except Google Fonts.
+Fonts: Cormorant Garamond (display) + DM Sans (body) — load from Google Fonts.
+Palette: Background #0A0A0A, text #F5F0E8, gold accent #C9A84C, surface #111111.
+Sections to build in order:
+
+Fixed nav — transparent, darkens on scroll, hamburger on mobile
+Hero — full viewport, dark atmospheric food image (Unsplash placeholder), asymmetric layout, brand name dominant, tagline separate with gold rule, single "Enquire Now" CTA
+About — Shabba's story (copy in PRD), pull quote in large italic gold serif breaking the grid
+Menu — 14 dishes in editorial fine-dining typographic layout (not a card grid), two columns desktop
+Gallery — asymmetric masonry grid, 6+ Unsplash food placeholders, gold hover border, images use class .gallery-img for easy swapping
+Trust band — 5★ Food Hygiene | Halal Certified | Nationwide — editorial treatment, not icon cards
+Enquiry form — Netlify Forms (data-netlify="true"), fields: Name, Email, Event Type, Event Date, Guest Count, Message. Thin gold bottom-border inputs. No phone number field, no phone number anywhere on the page.
+HelloFresh — compact personal-recommendation section, tokens [DISCOUNT_CODE] and [HELLOFRESH_LINK] in place
+Footer — Email (mailto link), Instagram/Facebook/TikTok inline SVG icons, copyright, privacy link. No phone number.
+
+SEO: Title tag, meta description, OG tags, semantic HTML, heading hierarchy, alt text, loading="lazy" on images below the fold.
+GDPR: Simple cookie notice banner + /privacy.html placeholder.
+Scroll animations: subtle fade-in on scroll using Intersection Observer — staggered, not all at once.
+Read the full PRD (shabba_PRD.md) for exact copy, all 14 menu items, social URLs, colour specs, and acceptance criteria before writing a single line of code.

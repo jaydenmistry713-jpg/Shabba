@@ -46,9 +46,20 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   no purple gradients, no "Our Services"/"Why Choose Us" sections. Think fine-dining
   menu meets magazine.
 - **Fonts:** Cormorant Garamond (display/serif) + DM Sans (body). Never substitute.
-- **Palette** (defined as CSS vars in `styles.css` `:root`): bg `#0A0A0A`,
-  bg-alt `#0F0F0F`, surface `#111111`, text `#F5F0E8`, gold `#C9A84C`,
-  muted gold `#8B7236`. No white backgrounds anywhere.
+- **Palette** — warm dark "stone" range (candle-lit, not flat black), defined as
+  CSS vars in `styles.css` `:root`: bg-deep `#0E0C0A`, bg `#14110E` (espresso),
+  bg-alt `#1E1A15` (warm charcoal), surface `#2A2620` (stone-grey, lightest panel),
+  text `#F5F0E8`, gold `#C9A84C`, muted gold `#8B7236`. Sections alternate across
+  the bg/bg-alt/surface tones for warmth — **don't flatten back to pure black**.
+  No white/light backgrounds anywhere.
+- **Texture:** a subtle SVG film-grain overlay (`body::after`, ~5% opacity,
+  `mix-blend-mode: overlay`) gives every section a hand-finished feel. Disabled
+  under `prefers-reduced-motion`.
+- **Woven imagery:** photos are distributed through the page, not pooled in the
+  gallery — full-bleed `.band` strips between sections (edges fade into the
+  adjacent section colour via `--edge-top`/`--edge-bot`), an inline `.menu__media`
+  accent, a left-bleed `.about__media` that dissolves into the page, and a tight
+  3-image gallery. All swappable photos keep `class="gallery-img"`.
 - **CSS** is plain (no preprocessor). Use the existing custom properties and the
   `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
 - **Scroll animations:** elements get class `.reveal`; `main.js` adds `.is-visible`

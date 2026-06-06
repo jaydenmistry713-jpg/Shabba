@@ -99,7 +99,11 @@ its URL changes. Whenever `styles.css` is updated, **bump the `?v=N` query strin
 on the stylesheet link in `index.html` (e.g. `styles.css?v=2` → `styles.css?v=3`).
 Failure to do this leaves live visitors with the old CSS against new HTML.
 
-The same applies to `main.js` if it ever gets a link with a versioned query string.
+**The same applies to `main.js`** — it is linked as `main.js?v=N` for exactly this
+reason. Bump that `?v=N` whenever `main.js` changes, or returning visitors keep
+running stale JS against new HTML (this is what made the gallery lightbox button
+appear dead — old cached `main.js` had no handler for it). Keep the CSS and JS
+version numbers moving forward as you edit each file.
 
 ## Hard requirements (don't break these)
 

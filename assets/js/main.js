@@ -167,6 +167,92 @@
     }
   }
 
+  /* ---------- Gallery lightbox ---------- */
+  var lightbox = document.getElementById("lightbox");
+  var galleryGrid = document.getElementById("gallery-grid");
+
+  if (lightbox && galleryGrid) {
+    var lbImg = document.getElementById("lightbox-img");
+    var lbCount = document.getElementById("lightbox-count");
+    var lbClose = document.getElementById("lightbox-close");
+    var lbPrev = document.getElementById("lightbox-prev");
+    var lbNext = document.getElementById("lightbox-next");
+    var viewBtn = document.getElementById("gallery-view");
+    var moreWrap = document.getElementById("gallery-more");
+
+    // Build the lightbox set: visible previews first, then the hidden "rest".
+    // Request a larger crop of placeholder URLs (w=800 → w=1600) for the big view.
+    var shots = [];
+    function collect(scope) {
+      if (!scope) return;
+      scope.querySelectorAll("img").forEach(function (img) {
+        shots.push({
+          src: (img.getAttribute("src") || "").replace(/([?&]w=)\d+/, "$11600"),
+          alt: img.getAttribute("alt") || "Cooking with Shabba gallery photo"
+        });
+      });
+    }
+    collect(galleryGrid);
+    collect(moreWrap);
+
+    var lbIndex = 0;
+    var lastFocus = null;
+
+    function render() {
+      var shot = shots[lbIndex];
+      if (!shot) return;
+      lbImg.src = shot.src;
+      lbImg.alt = shot.alt;
+      if (lbCount) lbCount.textContent = (lbIndex + 1) + " / " + shots.length;
+      // replay the zoom-in animation on each change
+      lbImg.style.animation = "none";
+      void lbImg.offsetWidth;
+      lbImg.style.animation = "";
+    }
+    function openLb(i) {
+      if (!shots.length) return;
+      lbIndex = (i + shots.length) % shots.length;
+      lastFocus = document.activeElement;
+      render();
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      if (lbClose) lbClose.focus();
+    }
+    function closeLb() {
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    function step(d) {
+      lbIndex = (lbIndex + d + shots.length) % shots.length;
+      render();
+    }
+
+    galleryGrid.querySelectorAll("[data-lightbox]").forEach(function (cell) {
+      cell.addEventListener("click", function () {
+        openLb(parseInt(cell.getAttribute("data-lightbox"), 10) || 0);
+      });
+    });
+    if (viewBtn) viewBtn.addEventListener("click", function () { openLb(0); });
+    if (lbClose) lbClose.addEventListener("click", closeLb);
+    if (lbPrev) lbPrev.addEventListener("click", function () { step(-1); });
+    if (lbNext) lbNext.addEventListener("click", function () { step(1); });
+
+    // Click the backdrop (outside the image) to close
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox || e.target === lbImg.parentNode) closeLb();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox.classList.contains("is-open")) return;
+      if (e.key === "Escape") closeLb();
+      else if (e.key === "ArrowLeft") step(-1);
+      else if (e.key === "ArrowRight") step(1);
+    });
+  }
+
   /* ---------- Cookie notice ---------- */
   var cookie = document.getElementById("cookie");
   var accept = document.getElementById("cookie-accept");

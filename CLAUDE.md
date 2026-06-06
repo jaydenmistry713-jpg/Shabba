@@ -58,8 +58,19 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
 - **Woven imagery:** photos are distributed through the page, not pooled in the
   gallery — full-bleed `.band` strips between sections (edges fade into the
   adjacent section colour via `--edge-top`/`--edge-bot`), an inline `.menu__media`
-  accent, a left-bleed `.about__media` that dissolves into the page, and a tight
-  3-image gallery. All swappable photos keep `class="gallery-img"`.
+  accent (graded dark + all four edges faded into `--bg-alt` so it reads as an
+  embedded band, not a pasted rectangle), a left-bleed `.about__media` that
+  dissolves into the page, and a preview gallery. All swappable photos keep
+  `class="gallery-img"`.
+- **Gallery + lightbox:** `.gallery__grid` shows 3 preview tiles (now `<button>`s
+  with a `data-lightbox` index and a `.gallery__zoom` "+" cue). The rest of the set
+  lives in `#gallery-more` (`hidden`, loads on demand). `main.js` builds the
+  lightbox image list from grid imgs **then** `#gallery-more` imgs (so preview
+  indices line up), upscaling placeholder URLs `w=800`→`w=1600`. `.gallery__view`
+  ("View Full Gallery") opens `#lightbox` at photo 1; tiles open at their own index.
+  Lightbox supports prev/next, dot-free counter, Esc/arrow keys, backdrop-click
+  close, body-scroll lock, and focus restore. Keep the "N Photos" count in the
+  button in sync with the total image count.
 - **CSS** is plain (no preprocessor). Use the existing custom properties and the
   `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
 - **Scroll animations:** elements get class `.reveal`; `main.js` adds `.is-visible`

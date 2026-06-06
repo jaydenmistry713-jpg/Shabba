@@ -57,11 +57,12 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   under `prefers-reduced-motion`.
 - **Woven imagery:** photos are distributed through the page, not pooled in the
   gallery — full-bleed `.band` strips between sections (edges fade into the
-  adjacent section colour via `--edge-top`/`--edge-bot`), an inline `.menu__media`
-  accent (graded dark + all four edges faded into `--bg-alt` so it reads as an
-  embedded band, not a pasted rectangle), a left-bleed `.about__media` that
-  dissolves into the page, and a preview gallery. All swappable photos keep
-  `class="gallery-img"`.
+  adjacent section colour via `--edge-top`/`--edge-bot`), a full-bleed
+  `.menu__media` banner (`width: 100vw` via `margin-inline: calc(50% - 50vw)`,
+  `height: auto` so it shows the whole dish at the display width; top/bottom fade
+  into `--bg-alt`) that sits above the `.menu__cols` list, a left-bleed
+  `.about__media` that dissolves into the page, and a preview gallery. All
+  swappable photos keep `class="gallery-img"`.
 - **Gallery + lightbox:** `.gallery__grid` shows 3 preview tiles (now `<button>`s
   with a `data-lightbox` index and a `.gallery__zoom` "+" cue). The rest of the set
   lives in `#gallery-more` (`hidden`, loads on demand). `main.js` builds the

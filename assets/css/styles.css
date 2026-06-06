@@ -492,42 +492,37 @@ a { color: inherit; text-decoration: none; }
 .menu__layout {
   max-width: var(--maxw);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: clamp(220px, 32%, 360px) 1fr;
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: stretch;
 }
+/* Full-bleed dish photo — spans the display width; height follows the image's
+   natural aspect ratio (no crop). Breaks out of the section's padding. */
 .menu__media {
   position: relative;
-  overflow: hidden;
-  min-height: 340px;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
 }
 .menu__media img {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* darker, warmer grade so the bright plate doesn't pop off the panel */
-  filter: grayscale(0.18) contrast(1.05) brightness(0.78) sepia(0.16);
+  height: auto;
+  filter: grayscale(0.14) contrast(1.04) brightness(0.88) sepia(0.14);
 }
-/* all four edges dissolve into the menu background so the photo feels embedded,
-   the way the full-bleed .band strips do */
+/* top & bottom dissolve into the menu panel, keeping the woven feel */
 .menu__media::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, transparent 48%, var(--bg-alt) 99%),
-    linear-gradient(180deg, var(--bg-alt) 0%, transparent 18%),
-    linear-gradient(0deg, var(--bg-alt) 0%, transparent 18%);
+    linear-gradient(180deg, var(--bg-alt) 0%, transparent 14%),
+    linear-gradient(0deg, var(--bg-alt) 0%, transparent 14%);
 }
 .menu__cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0 clamp(2rem, 5vw, 4rem);
-  align-self: center;
+  max-width: var(--maxw);
+  margin: 0 auto;
 }
 .menu__list { list-style: none; }
 .menu__item {
@@ -1375,15 +1370,6 @@ a { color: inherit; text-decoration: none; }
   }
   .about__body { padding: 2.5rem var(--gut) 0; max-width: none; }
   .about__quote { text-align: left; margin: clamp(3rem, 8vh, 5rem) var(--gut) 0 0; max-width: 100%; }
-
-  .menu__layout { grid-template-columns: 1fr; gap: 2.5rem; }
-  .menu__media { min-height: clamp(220px, 36vh, 320px); }
-  /* stacked: fade top & bottom into the panel so it reads as a soft band */
-  .menu__media::after {
-    background:
-      linear-gradient(180deg, var(--bg-alt) 1%, transparent 26%),
-      linear-gradient(0deg, var(--bg-alt) 1%, transparent 26%);
-  }
 
   .trust__band { flex-direction: column; gap: 2.5rem; }
   .trust__sep { width: 60%; height: 1px; margin: 0 auto;

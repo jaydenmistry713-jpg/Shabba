@@ -68,8 +68,9 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   `.review` figures stacked absolutely and cross-faded via `.is-active`; `main.js`
   auto-rotates every 6.5s, builds the `.reviews__dot` nav into `#reviews-dots`, and
   pauses on hover/focus/tab-hidden. Auto-rotation is disabled under
-  `prefers-reduced-motion` (first review stays shown). Review text is **placeholder** —
-  swap for real guest quotes before go-live.
+  `prefers-reduced-motion` (first review stays shown). Reviews are **real guest
+  quotes** extracted from social DMs, lightly tidied for spelling and anonymised to
+  initials/first name.
 - **FAQ:** `.faq` section just before the footer, built from native
   `<details class="faq__item">`/`<summary class="faq__q">` (no JS — accessible by
   default). The `+`/`−` toggle is the `.faq__icon` pseudo-elements.
@@ -105,5 +106,3 @@ The same applies to `main.js` if it ever gets a link with a versioned query stri
 - Hero background, About `<img>`, and 6 gallery images (real photos — shoot 6 Jun 2026)
 - `og:image` (`/assets/og-image.jpg`) — also referenced in the JSON-LD `image` field
 - Favicon + touch icons (deferred to a later session)
-- Reviews carousel copy — currently 4 placeholder testimonials in the `.reviews`
-  section; replace with real guest quotes (name + event/location)

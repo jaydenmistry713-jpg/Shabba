@@ -722,6 +722,34 @@ a { color: inherit; text-decoration: none; }
   border-color: var(--gold);
   transform: scale(1.15);
 }
+/* Auto-rotation progress indicator — fills over each slide's interval */
+.reviews__progress {
+  width: min(220px, 60%);
+  height: 2px;
+  margin: 1.5rem auto 0;
+  background: rgba(139, 114, 54, 0.22);
+  overflow: hidden;
+}
+.reviews__bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+/* JS adds .is-running to (re)start the fill on each slide change */
+.reviews__bar.is-running {
+  animation: reviewProgress 6.5s linear forwards;
+}
+@keyframes reviewProgress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+/* No auto-rotation under reduced motion — hide the timer entirely */
+@media (prefers-reduced-motion: reduce) {
+  .reviews__progress { display: none; }
+}
 
 /* ============================================================
    TRUST

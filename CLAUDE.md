@@ -66,11 +66,14 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   via IntersectionObserver with a stagger. Respect `prefers-reduced-motion`.
 - **Reviews carousel:** `.reviews` section between Gallery and Trust. Slides are
   `.review` figures stacked absolutely and cross-faded via `.is-active`; `main.js`
-  auto-rotates every 6.5s, builds the `.reviews__dot` nav into `#reviews-dots`, and
-  pauses on hover/focus/tab-hidden. Auto-rotation is disabled under
-  `prefers-reduced-motion` (first review stays shown). Reviews are **real guest
-  quotes** extracted from social DMs, lightly tidied for spelling and anonymised to
-  initials/first name.
+  builds the `.reviews__dot` nav into `#reviews-dots`. Rotation is **driven by the
+  progress indicator** (`.reviews__bar`): the bar's CSS `@keyframes reviewProgress`
+  fill sets the interval (6.5s — single source of truth), and its `animationend`
+  advances the slide, so bar and timing never drift. Pause = freezing the bar's
+  `animation-play-state` (on hover/focus/tab-hidden). Auto-rotation is disabled under
+  `prefers-reduced-motion` (first review stays shown, progress bar hidden). Reviews
+  are **real guest quotes** extracted from social DMs, lightly tidied for spelling
+  and anonymised to initials/first name.
 - **FAQ:** `.faq` section just before the footer, built from native
   `<details class="faq__item">`/`<summary class="faq__q">` (no JS — accessible by
   default). The `+`/`−` toggle is the `.faq__icon` pseudo-elements.

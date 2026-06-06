@@ -98,18 +98,22 @@
     });
   }
 
-  /* ---------- Reviews: auto-rotating carousel ---------- */
+  /* ---------- Reviews: auto-rotating carousel ----------
+     The progress bar drives the rotation: it fills over the slide's
+     interval (duration set in CSS) and its `animationend` advances to the
+     next slide, so the indicator and the timing can never drift apart.
+     Pausing = freezing the bar's animation-play-state. */
   var stage = document.getElementById("reviews-stage");
   var track = document.getElementById("reviews-track");
   var dotsWrap = document.getElementById("reviews-dots");
+  var bar = document.getElementById("reviews-bar");
 
   if (stage && track && dotsWrap) {
     var slides = track.querySelectorAll(".review");
     var reduceMotion = window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var autoRotate = bar && !reduceMotion && slides.length > 1;
     var current = 0;
-    var timer = null;
-    var INTERVAL = 6500;
 
     // Build a dot per slide
     var dots = [];
@@ -120,10 +124,7 @@
       dot.setAttribute("role", "tab");
       dot.setAttribute("aria-label", "Review " + (i + 1) + " of " + slides.length);
       dot.setAttribute("aria-selected", i === 0 ? "true" : "false");
-      dot.addEventListener("click", function () {
-        show(i);
-        restart();
-      });
+      dot.addEventListener("click", function () { show(i); });
       dotsWrap.appendChild(dot);
       dots.push(dot);
     });
@@ -136,29 +137,34 @@
       slides[current].classList.add("is-active");
       dots[current].classList.add("is-active");
       dots[current].setAttribute("aria-selected", "true");
+      runBar();
     }
 
-    function advance() { show(current + 1); }
-
-    function start() {
-      if (reduceMotion || slides.length < 2) return;
-      timer = setInterval(advance, INTERVAL);
+    // Restart the progress fill from zero for the current slide
+    function runBar() {
+      if (!autoRotate) return;
+      bar.classList.remove("is-running");
+      void bar.offsetWidth; // force reflow so the animation replays
+      bar.style.animationPlayState = "running";
+      bar.classList.add("is-running");
     }
-    function stop() {
-      if (timer) { clearInterval(timer); timer = null; }
+    function pause() { if (autoRotate) bar.style.animationPlayState = "paused"; }
+    function resume() { if (autoRotate) bar.style.animationPlayState = "running"; }
+
+    if (autoRotate) {
+      bar.addEventListener("animationend", function () { show(current + 1); });
+
+      // Pause while the visitor is reading / interacting
+      stage.addEventListener("mouseenter", pause);
+      stage.addEventListener("mouseleave", resume);
+      stage.addEventListener("focusin", pause);
+      stage.addEventListener("focusout", resume);
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) { pause(); } else { resume(); }
+      });
+
+      runBar(); // kick off the first slide's timer
     }
-    function restart() { stop(); start(); }
-
-    // Pause while the visitor is reading / interacting
-    stage.addEventListener("mouseenter", stop);
-    stage.addEventListener("mouseleave", start);
-    stage.addEventListener("focusin", stop);
-    stage.addEventListener("focusout", start);
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) { stop(); } else { start(); }
-    });
-
-    start();
   }
 
   /* ---------- Cookie notice ---------- */

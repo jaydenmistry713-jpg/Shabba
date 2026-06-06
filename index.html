@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=2" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=3" />
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -224,6 +224,55 @@
       <p class="gallery__label reveal"><em>Gallery updated as events happen — follow <a href="https://www.instagram.com/cookingwithshabba" target="_blank" rel="noopener">@cookingwithshabba</a> for the latest.</em></p>
     </section>
 
+    <!-- ============ REVIEWS — auto-rotating ============ -->
+    <!-- Placeholder testimonials — swap for real guest reviews before go-live. -->
+    <section class="reviews" id="reviews" aria-label="Guest reviews" aria-roledescription="carousel">
+      <header class="reviews__head">
+        <p class="section-kicker reveal">Kind Words</p>
+        <h2 class="reviews__heading reveal">From the Table</h2>
+      </header>
+
+      <div class="reviews__stage reveal" id="reviews-stage">
+        <span class="reviews__mark" aria-hidden="true">&ldquo;</span>
+
+        <div class="reviews__track" id="reviews-track" aria-live="polite">
+          <figure class="review is-active">
+            <blockquote class="review__text">Shabba turned our anniversary into something we'll never forget. The curry goat alone had every guest asking for the recipe — but it was the presentation and the warmth that made it feel truly special.</blockquote>
+            <figcaption class="review__by">
+              <span class="review__name">Marcia &amp; Devon</span>
+              <span class="review__meta">Private Anniversary Dinner · Birmingham</span>
+            </figcaption>
+          </figure>
+
+          <figure class="review">
+            <blockquote class="review__text">We booked Cooking with Shabba for a corporate evening and the team is still talking about it. Faultless service, beautiful plating, and flavour that genuinely transported the room. Worth every penny.</blockquote>
+            <figcaption class="review__by">
+              <span class="review__name">Olu A.</span>
+              <span class="review__meta">Corporate Event · London</span>
+            </figcaption>
+          </figure>
+
+          <figure class="review">
+            <blockquote class="review__text">From the first message to the last plate, everything was effortless. The honey glazed lamb chops were extraordinary. Shabba treats your event like their own — you feel looked after the entire night.</blockquote>
+            <figcaption class="review__by">
+              <span class="review__name">Hannah P.</span>
+              <span class="review__meta">50th Birthday Celebration · Bristol</span>
+            </figcaption>
+          </figure>
+
+          <figure class="review">
+            <blockquote class="review__text">Authentic Caribbean food done to a fine-dining standard — I didn't think the two could meet so perfectly. Our guests haven't stopped raving. We're already planning the next one.</blockquote>
+            <figcaption class="review__by">
+              <span class="review__name">The Reid Family</span>
+              <span class="review__meta">Family Gathering · Gloucester</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="reviews__dots" id="reviews-dots" role="tablist" aria-label="Select a review"></div>
+      </div>
+    </section>
+
     <!-- ============ TRUST / CREDENTIALS ============ -->
     <section class="trust" aria-label="Credentials">
       <div class="trust__band">
@@ -311,6 +360,48 @@
           <span class="hf__code">[DISCOUNT_CODE]</span> to get <strong>50% off your first box</strong>.</p>
         <a class="hf__cta" href="[HELLOFRESH_LINK]" target="_blank" rel="noopener">Claim Discount</a>
       </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq" id="faq" aria-label="Frequently asked questions">
+      <header class="faq__head">
+        <p class="section-kicker reveal">Good to Know</p>
+        <h2 class="faq__heading reveal">Questions &amp; Answers</h2>
+      </header>
+
+      <div class="faq__list">
+        <details class="faq__item reveal">
+          <summary class="faq__q">Where do you cater?<span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><p>We're based in Gloucester and available for private events right across the UK. Wherever your occasion is, get in touch and we'll talk through the details.</p></div>
+        </details>
+
+        <details class="faq__item reveal">
+          <summary class="faq__q">Is the food Halal?<span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><p>Yes — without exception. Every dish is prepared to Halal standards, and we hold a 5★ food hygiene rating from our local authority.</p></div>
+        </details>
+
+        <details class="faq__item reveal">
+          <summary class="faq__q">How many guests can you cater for?<span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><p>From intimate private dinners to larger celebrations and corporate gatherings. Share your numbers when you enquire and we'll tailor the experience to suit.</p></div>
+        </details>
+
+        <details class="faq__item reveal">
+          <summary class="faq__q">Can the menu be customised?<span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><p>Absolutely. The menu is a starting point — flavours and dishes can vary to suit your event and tastes. If you have dietary requirements, mention them in your enquiry and we'll happily accommodate.</p></div>
+        </details>
+
+        <details class="faq__item reveal">
+          <summary class="faq__q">How far in advance should I book?<span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><p>The earlier the better, especially for weekends and peak dates. Send your preferred date through the enquiry form and we'll confirm availability as quickly as we can.</p></div>
+        </details>
+
+        <details class="faq__item reveal">
+          <summary class="faq__q">What's included in the experience?<span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><p>Freshly prepared Caribbean cuisine with premium presentation, served with the care and warmth that defines every Cooking with Shabba event. Tell us your vision and we'll build the rest around it.</p></div>
+        </details>
+      </div>
+
+      <p class="faq__more reveal">Still have a question? <a href="#enquire">Send an enquiry</a> — we'd love to hear from you.</p>
     </section>
 
   </main>

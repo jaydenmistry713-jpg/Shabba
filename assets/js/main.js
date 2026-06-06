@@ -98,6 +98,69 @@
     });
   }
 
+  /* ---------- Reviews: auto-rotating carousel ---------- */
+  var stage = document.getElementById("reviews-stage");
+  var track = document.getElementById("reviews-track");
+  var dotsWrap = document.getElementById("reviews-dots");
+
+  if (stage && track && dotsWrap) {
+    var slides = track.querySelectorAll(".review");
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var current = 0;
+    var timer = null;
+    var INTERVAL = 6500;
+
+    // Build a dot per slide
+    var dots = [];
+    slides.forEach(function (slide, i) {
+      var dot = document.createElement("button");
+      dot.className = "reviews__dot" + (i === 0 ? " is-active" : "");
+      dot.setAttribute("type", "button");
+      dot.setAttribute("role", "tab");
+      dot.setAttribute("aria-label", "Review " + (i + 1) + " of " + slides.length);
+      dot.setAttribute("aria-selected", i === 0 ? "true" : "false");
+      dot.addEventListener("click", function () {
+        show(i);
+        restart();
+      });
+      dotsWrap.appendChild(dot);
+      dots.push(dot);
+    });
+
+    function show(n) {
+      slides[current].classList.remove("is-active");
+      dots[current].classList.remove("is-active");
+      dots[current].setAttribute("aria-selected", "false");
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add("is-active");
+      dots[current].classList.add("is-active");
+      dots[current].setAttribute("aria-selected", "true");
+    }
+
+    function advance() { show(current + 1); }
+
+    function start() {
+      if (reduceMotion || slides.length < 2) return;
+      timer = setInterval(advance, INTERVAL);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+    function restart() { stop(); start(); }
+
+    // Pause while the visitor is reading / interacting
+    stage.addEventListener("mouseenter", stop);
+    stage.addEventListener("mouseleave", start);
+    stage.addEventListener("focusin", stop);
+    stage.addEventListener("focusout", start);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) { stop(); } else { start(); }
+    });
+
+    start();
+  }
+
   /* ---------- Cookie notice ---------- */
   var cookie = document.getElementById("cookie");
   var accept = document.getElementById("cookie-accept");

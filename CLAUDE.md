@@ -19,14 +19,14 @@ Static site. **No frameworks, no build step, no package manager.** Vanilla
 HTML/CSS/JS only. The single external dependency is Google Fonts.
 
 ```
-index.html              Single-page site — all 9 sections in order; JSON-LD in <head>
+index.html              Single-page site — all sections in order; JSON-LD in <head>
 privacy.html            Placeholder privacy policy (noindex)
 404.html                Branded not-found page
 robots.txt              Crawl rules + sitemap pointer
 sitemap.xml             Single-URL sitemap
 netlify.toml            /privacy → /privacy.html redirect, security headers, asset caching
 assets/css/styles.css   All styling (CSS custom properties at :root)
-assets/js/main.js        Nav scroll, mobile menu, scroll reveal, AJAX form submit, cookie notice
+assets/js/main.js        Nav scroll, mobile menu, scroll reveal, reviews carousel, AJAX form submit, cookie notice
 shabba_PRD.md           Full product spec
 prompt.txt              Original build brief
 ```
@@ -64,6 +64,15 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
 - **Scroll animations:** elements get class `.reveal`; `main.js` adds `.is-visible`
   via IntersectionObserver with a stagger. Respect `prefers-reduced-motion`.
+- **Reviews carousel:** `.reviews` section between Gallery and Trust. Slides are
+  `.review` figures stacked absolutely and cross-faded via `.is-active`; `main.js`
+  auto-rotates every 6.5s, builds the `.reviews__dot` nav into `#reviews-dots`, and
+  pauses on hover/focus/tab-hidden. Auto-rotation is disabled under
+  `prefers-reduced-motion` (first review stays shown). Review text is **placeholder** —
+  swap for real guest quotes before go-live.
+- **FAQ:** `.faq` section just before the footer, built from native
+  `<details class="faq__item">`/`<summary class="faq__q">` (no JS — accessible by
+  default). The `+`/`−` toggle is the `.faq__icon` pseudo-elements.
 - **JS** is a single IIFE in `main.js`, ES5-safe, no dependencies.
 
 ## Deployment (CSS cache-busting)
@@ -96,4 +105,5 @@ The same applies to `main.js` if it ever gets a link with a versioned query stri
 - Hero background, About `<img>`, and 6 gallery images (real photos — shoot 6 Jun 2026)
 - `og:image` (`/assets/og-image.jpg`) — also referenced in the JSON-LD `image` field
 - Favicon + touch icons (deferred to a later session)
-- Testimonials section (deferred to a later session)
+- Reviews carousel copy — currently 4 placeholder testimonials in the `.reviews`
+  section; replace with real guest quotes (name + event/location)

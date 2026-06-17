@@ -26,13 +26,21 @@ robots.txt              Crawl rules + sitemap pointer
 sitemap.xml             Single-URL sitemap
 netlify.toml            /privacy → /privacy.html redirect, security headers, asset caching
 assets/css/styles.css   All styling (CSS custom properties at :root)
-assets/js/main.js        Nav scroll, mobile menu, scroll reveal, reviews carousel, AJAX form submit, cookie notice
+assets/js/main.js        Nav scroll, mobile menu, scroll reveal, reviews carousel, gallery lightbox, AJAX form submit, cookie notice
+assets/images/          Real brand photos (hero, about, 2 bands, menu, gallery + lightbox), favicons, og-image
+site.webmanifest        PWA manifest (icon-192/512, theme colour)
 shabba_PRD.md           Full product spec
 prompt.txt              Original build brief
 ```
 
-There is no `assets/images/` yet — gallery, hero, and about images are **Unsplash
-placeholder URLs** to be swapped for real shoot photos.
+Real shoot photos now live in `assets/images/` (optimised JPGs). They were processed
+from the originals in `shabbaimages/` (untracked source folder) with `sharp`. Food
+shots are warm/dark and carry the candle-lit bands, hero and menu accent; the brighter
+studio portraits of Shabba are dimmed/warmed by the existing CSS tone filters
+(`brightness()` + `sepia()` on `.about__media`, `.band__img`, `.gallery__cell`,
+`.menu__media`) so they read as editorial, not stark white — keep those filters when
+swapping images. Favicons + the OG image were generated from the chef-badge logo and
+the food spread respectively.
 
 ## Running it
 
@@ -67,7 +75,8 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   with a `data-lightbox` index and a `.gallery__zoom` "+" cue). The rest of the set
   lives in `#gallery-more` (`hidden`, loads on demand). `main.js` builds the
   lightbox image list from grid imgs **then** `#gallery-more` imgs (so preview
-  indices line up), upscaling placeholder URLs `w=800`→`w=1600`. `.gallery__view`
+  indices line up); images are now local `assets/images/*` files (the `w=800`→`w=1600`
+  upscale `.replace` in `main.js` is a harmless no-op on them). `.gallery__view`
   ("View Full Gallery") opens `#lightbox` at photo 1; tiles open at their own index.
   Lightbox supports prev/next, dot-free counter, Esc/arrow keys, backdrop-click
   close, body-scroll lock, and focus restore. Keep the "N Photos" count in the
@@ -122,6 +131,7 @@ version numbers moving forward as you edit each file.
 ## Pending content (placeholders to replace before go-live)
 
 - `[DISCOUNT_CODE]` and `[HELLOFRESH_LINK]` in the HelloFresh section
-- Hero background, About `<img>`, and 6 gallery images (real photos — shoot 6 Jun 2026)
-- `og:image` (`/assets/og-image.jpg`) — also referenced in the JSON-LD `image` field
-- Favicon + touch icons (deferred to a later session)
+
+Done: real shoot photos wired into hero/about/bands/menu/gallery (+ lightbox),
+favicons + touch icons, the OG image (`/assets/og-image.jpg`, also used by the
+JSON-LD `image`), and the reviews/testimonials carousel.

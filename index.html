@@ -8,6 +8,13 @@
   <meta name="description" content="Cooking with Shabba offers luxury private dining buffet experiences across the UK. Caribbean cuisine, premium presentation, and unforgettable events. Enquire now." />
   <link rel="canonical" href="https://cookingwithshabba.co.uk" />
 
+  <!-- Favicons & touch icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#14110E" />
+
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Cooking with Shabba | Luxury Private Dining" />
@@ -21,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=6" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=7" />
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -124,8 +131,8 @@
     <section class="about" id="about" aria-label="About Shabba">
       <div class="about__grid">
         <figure class="about__media reveal">
-          <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=900&q=80"
-               alt="Shabba preparing a Caribbean dish in the kitchen" loading="lazy" />
+          <img src="assets/images/about.jpg"
+               alt="Shabba — the chef behind Cooking with Shabba" loading="lazy" />
           <figcaption class="about__creds">
             <span>5★ Food Hygiene</span>
             <span class="dot">·</span>
@@ -152,7 +159,7 @@
 
     <!-- ============ IMAGE BAND — full-bleed, woven between sections ============ -->
     <section class="band" aria-label="Caribbean dining">
-      <img class="gallery-img band__img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80" alt="Cooking with Shabba — a table laid for a private dining event" loading="lazy" />
+      <img class="gallery-img band__img" src="assets/images/band-1.jpg" alt="Cooking with Shabba — glazed BBQ wings and fried chicken" loading="lazy" />
       <div class="band__scrim"></div>
       <p class="band__line reveal"><span class="rule"></span>Plated with intention, served with soul</p>
     </section>
@@ -166,7 +173,7 @@
 
       <div class="menu__layout">
         <figure class="menu__media reveal">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=900&q=80" alt="Cooking with Shabba — a signature Caribbean plate" loading="lazy" />
+          <img class="gallery-img" src="assets/images/menu.jpg" alt="Cooking with Shabba — Caribbean rice and peas" loading="lazy" />
         </figure>
 
       <div class="menu__cols">
@@ -197,7 +204,7 @@
 
     <!-- ============ IMAGE BAND — full-bleed, woven between sections ============ -->
     <section class="band band--tall" aria-label="In the moment">
-      <img class="gallery-img band__img" src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1600&q=80" alt="Cooking with Shabba — guests gathered around the table" loading="lazy" />
+      <img class="gallery-img band__img" src="assets/images/band-2.jpg" alt="Cooking with Shabba — a stacked beef burger slider" loading="lazy" />
       <div class="band__scrim"></div>
       <p class="band__line band__line--right reveal">Caribbean culture, in every detail<span class="rule"></span></p>
     </section>
@@ -212,26 +219,26 @@
       <!-- Preview tiles — open the lightbox at their own index -->
       <div class="gallery__grid" id="gallery-grid">
         <button type="button" class="gallery__cell gallery__cell--tall reveal" data-lightbox="0" aria-label="Open gallery at photo 1">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="Cooking with Shabba — a plated Caribbean dish" loading="lazy" />
+          <img class="gallery-img" src="assets/images/gallery-1.jpg" alt="Cooking with Shabba — Shabba in his chef apron" loading="lazy" />
           <span class="gallery__zoom" aria-hidden="true"></span>
         </button>
         <button type="button" class="gallery__cell reveal" data-lightbox="1" aria-label="Open gallery at photo 2">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80" alt="Cooking with Shabba — private dining table" loading="lazy" />
+          <img class="gallery-img" src="assets/images/gallery-2.jpg" alt="Cooking with Shabba — Shabba and the brand feature" loading="lazy" />
           <span class="gallery__zoom" aria-hidden="true"></span>
         </button>
         <button type="button" class="gallery__cell reveal" data-lightbox="2" aria-label="Open gallery at photo 3">
-          <img class="gallery-img" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80" alt="Cooking with Shabba — a finished plate" loading="lazy" />
+          <img class="gallery-img" src="assets/images/gallery-3.jpg" alt="Cooking with Shabba — Shabba presenting the brand" loading="lazy" />
           <span class="gallery__zoom" aria-hidden="true"></span>
         </button>
       </div>
 
       <!-- The rest of the set — shown only inside the lightbox (loads on demand) -->
       <div class="gallery__more" id="gallery-more" hidden aria-hidden="true">
-        <img class="gallery-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80" alt="Cooking with Shabba — a table laid for a private event" />
-        <img class="gallery-img" src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=1200&q=80" alt="Cooking with Shabba — a signature Caribbean plate" />
-        <img class="gallery-img" src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1200&q=80" alt="Cooking with Shabba — guests gathered around the table" />
-        <img class="gallery-img" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&q=80" alt="Cooking with Shabba — preparing a Caribbean dish" />
-        <img class="gallery-img" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=1200&q=80" alt="Cooking with Shabba — fresh Caribbean cuisine" />
+        <img class="gallery-img" src="assets/images/gallery-4.jpg" alt="Cooking with Shabba — the dining experience at home" />
+        <img class="gallery-img" src="assets/images/gallery-5.jpg" alt="Cooking with Shabba — Shabba reading the feature" />
+        <img class="gallery-img" src="assets/images/gallery-6.jpg" alt="Cooking with Shabba — serving Caribbean dishes" />
+        <img class="gallery-img" src="assets/images/band-1.jpg" alt="Cooking with Shabba — glazed BBQ wings and fried chicken" />
+        <img class="gallery-img" src="assets/images/band-2.jpg" alt="Cooking with Shabba — a stacked beef burger slider" />
       </div>
 
       <div class="gallery__actions reveal">

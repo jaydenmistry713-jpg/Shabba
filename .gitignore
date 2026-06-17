@@ -11,3 +11,6 @@ desktop.ini
 # Logs / deps (none expected for this static site)
 node_modules/
 *.log
+
+# Source photo originals — optimised versions ship in assets/images/
+shabbaimages/

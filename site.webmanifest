@@ -1,0 +1,12 @@
+{
+  "name": "Cooking with Shabba",
+  "short_name": "Shabba",
+  "description": "Luxury private dining and Caribbean cuisine across the UK.",
+  "icons": [
+    { "src": "/assets/images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/images/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#14110E",
+  "background_color": "#0E0C0A",
+  "display": "standalone"
+}

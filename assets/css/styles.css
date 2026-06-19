@@ -83,6 +83,26 @@ a { color: inherit; text-decoration: none; }
   html { scroll-behavior: auto; }
 }
 
+/* Image unveil — photos settle into place (scale + fade) as they enter view.
+   Targets the direct <img> child so caption/overlay siblings are untouched.
+   Containers that already clip (gallery cells, menu media) hide the overscan. */
+.reveal-img > img {
+  opacity: 0;
+  transform: scale(1.09);
+  transition: opacity 1.1s var(--ease), transform 1.4s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal-img.is-visible > img { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal-img > img { opacity: 1; transform: none; transition: none; }
+}
+
+/* Parallax drift — full-bleed photos move slower than the page as you scroll.
+   JS sets the transform each frame; this is the resting/no-JS fallback. */
+@media (prefers-reduced-motion: reduce) {
+  [data-parallax] { transform: none !important; }
+}
+
 /* ============================================================
    NAVIGATION
    ============================================================ */
@@ -375,6 +395,26 @@ a { color: inherit; text-decoration: none; }
 }
 .about__creds .dot { color: var(--gold-mute); }
 
+/* Small colour food detail overlapping the portrait — ties the chef to the
+   food and adds an art-directed, layered "magazine" feel. */
+.about__accent {
+  position: absolute;
+  right: clamp(-2.6rem, -2.5vw, -1.4rem);
+  bottom: clamp(2rem, 7vh, 4.5rem);
+  z-index: 3;
+  width: clamp(118px, 16vw, 210px);
+  aspect-ratio: 5 / 6;
+  overflow: hidden;
+  border: 1px solid var(--hair);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
+}
+.about__accent img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.04) brightness(0.96);
+}
+
 .about__heading {
   font-family: var(--serif);
   font-weight: 500;
@@ -415,6 +455,12 @@ a { color: inherit; text-decoration: none; }
   height: clamp(340px, 62vh, 620px);
   --edge-top: var(--bg-alt);
   --edge-bot: var(--bg);
+}
+/* Lifestyle/brand band — sits between the gallery (--bg) and reviews (--bg-alt) */
+.band--lifestyle {
+  height: clamp(360px, 64vh, 640px);
+  --edge-top: var(--bg);
+  --edge-bot: var(--bg-alt);
 }
 .band__img {
   position: absolute;
@@ -616,8 +662,17 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s var(--ease), filter 0.6s var(--ease);
+  transition: transform 0.7s var(--ease), filter 0.6s var(--ease), opacity 1.1s var(--ease);
   filter: grayscale(0.2) brightness(0.88) sepia(0.12);
+}
+/* Each tile wipes upward + the photo scales in as it enters view */
+.gallery__cell.reveal-img {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.9s var(--ease);
+}
+.gallery__cell.reveal-img:not(.is-visible) { clip-path: inset(0 0 100% 0); }
+@media (prefers-reduced-motion: reduce) {
+  .gallery__cell.reveal-img { clip-path: none; transition: none; }
 }
 .gallery__cell::after {
   content: "";
@@ -1397,6 +1452,7 @@ a { color: inherit; text-decoration: none; }
   }
   .about__body { padding: 2.5rem var(--gut) 0; max-width: none; }
   .about__quote { text-align: left; margin: clamp(3rem, 8vh, 5rem) var(--gut) 0 0; max-width: 100%; }
+  .about__accent { display: none; } /* overlap only reads on the two-column layout */
 
   .trust__band { flex-direction: column; gap: 2.5rem; }
   .trust__sep { width: 60%; height: 1px; margin: 0 auto;

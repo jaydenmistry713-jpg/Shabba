@@ -26,21 +26,25 @@ robots.txt              Crawl rules + sitemap pointer
 sitemap.xml             Single-URL sitemap
 netlify.toml            /privacy → /privacy.html redirect, security headers, asset caching
 assets/css/styles.css   All styling (CSS custom properties at :root)
-assets/js/main.js        Nav scroll, mobile menu, scroll reveal, reviews carousel, gallery lightbox, AJAX form submit, cookie notice
-assets/images/          Real brand photos (hero, about, 2 bands, menu, gallery + lightbox), favicons, og-image
+assets/js/main.js        Nav scroll, mobile menu, scroll reveal + image unveil, photo parallax, reviews carousel, gallery lightbox, AJAX form submit, cookie notice
+assets/images/          Real brand photos (hero, about + about-detail accent, 2 food bands, lifestyle band, menu, 6 gallery tiles + lightbox), favicons, og-image
 site.webmanifest        PWA manifest (icon-192/512, theme colour)
 shabba_PRD.md           Full product spec
 prompt.txt              Original build brief
 ```
 
-Real shoot photos now live in `assets/images/` (optimised JPGs). They were processed
-from the originals in `shabbaimages/` (untracked source folder) with `sharp`. Food
-shots are warm/dark and carry the candle-lit bands, hero and menu accent; the brighter
-studio portraits of Shabba are dimmed/warmed by the existing CSS tone filters
-(`brightness()` + `sepia()` on `.about__media`, `.band__img`, `.gallery__cell`,
-`.menu__media`) so they read as editorial, not stark white — keep those filters when
-swapping images. Favicons + the OG image were generated from the chef-badge logo and
-the food spread respectively.
+Real shoot photos live in `assets/images/` (optimised JPGs), processed from the
+originals in `shabbaimages/` (untracked) by `process-images.cjs` (gitignored;
+re-run with `node process-images.cjs` — it borrows `sharp` from the global
+netlify-cli). **Two photo treatments, applied at the source so they're baked in:**
+food shots stay in **colour** (warm/dark — hero, the two food bands, menu accent,
+the colour gallery tiles); the white-studio **portrait/lifestyle shots are converted
+to a warm low-key duotone** (greyscale → tonal range pulled down → red-gold `.tint`
+→ vignette) so the clinical white backgrounds recede into the candle-lit layout
+instead of glaring. This colour-food / duotone-people split is the deliberate
+editorial look — keep it when swapping images, and keep the lighter CSS tone filters
+on `.about__media`/`.band__img`/`.gallery__cell`/`.menu__media` on top. Favicons + the
+OG image were generated from the chef-badge logo and the food spread respectively.
 
 ## Running it
 
@@ -63,29 +67,36 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
 - **Texture:** a subtle SVG film-grain overlay (`body::after`, ~5% opacity,
   `mix-blend-mode: overlay`) gives every section a hand-finished feel. Disabled
   under `prefers-reduced-motion`.
-- **Woven imagery:** photos are distributed through the page, not pooled in the
-  gallery — full-bleed `.band` strips between sections (edges fade into the
-  adjacent section colour via `--edge-top`/`--edge-bot`), a full-bleed
-  `.menu__media` banner (`width: 100vw` via `margin-inline: calc(50% - 50vw)`,
-  `height: auto` so it shows the whole dish at the display width; top/bottom fade
-  into `--bg-alt`) that sits above the `.menu__cols` list, a left-bleed
-  `.about__media` that dissolves into the page, and a preview gallery. All
-  swappable photos keep `class="gallery-img"`.
-- **Gallery + lightbox:** `.gallery__grid` shows 3 preview tiles (now `<button>`s
-  with a `data-lightbox` index and a `.gallery__zoom` "+" cue). The rest of the set
-  lives in `#gallery-more` (`hidden`, loads on demand). `main.js` builds the
-  lightbox image list from grid imgs **then** `#gallery-more` imgs (so preview
-  indices line up); images are now local `assets/images/*` files (the `w=800`→`w=1600`
-  upscale `.replace` in `main.js` is a harmless no-op on them). `.gallery__view`
-  ("View Full Gallery") opens `#lightbox` at photo 1; tiles open at their own index.
-  Lightbox supports prev/next, dot-free counter, Esc/arrow keys, backdrop-click
-  close, body-scroll lock, and focus restore. Keep the "N Photos" count in the
-  button in sync with the total image count.
+- **Woven imagery:** every photo is placed with intent and distributed through the
+  page, never pooled — full-bleed `.band` strips between sections (edges fade into
+  the adjacent section colour via `--edge-top`/`--edge-bot`), including a
+  `.band--lifestyle` brand/at-home strip between the gallery and reviews; a full-bleed
+  `.menu__media` banner (`width: 100vw` via `margin-inline: calc(50% - 50vw)`;
+  top/bottom fade into `--bg-alt`) above the `.menu__cols` list; a left-bleed
+  `.about__media` portrait that dissolves into the page, with a small overlapping
+  colour food detail (`.about__accent`, hidden when the layout stacks) for an
+  art-directed layered feel; and a curated gallery. All swappable photos keep
+  `class="gallery-img"`.
+- **Gallery + lightbox:** `.gallery__grid` is a curated **asymmetric mosaic** of 6
+  `<button>` tiles (duotone portraits interleaved with colour food; sizes via
+  `--tall`/`--wide`), each with a `data-lightbox` index and a `.gallery__zoom` "+"
+  cue. Three extra food shots live in `#gallery-more` (`hidden`, lightbox-only).
+  `main.js` builds the lightbox list from grid imgs **then** `#gallery-more` imgs
+  (so tile indices line up) — 9 total; the `w=800`→`w=1600` upscale `.replace` is a
+  harmless no-op on the local files. `.gallery__view` ("View Full Gallery") opens
+  `#lightbox` at photo 1; tiles open at their own index. Lightbox supports prev/next,
+  dot-free counter, Esc/arrow keys, backdrop-click close, body-scroll lock, and focus
+  restore. Keep the "N Photos" count in the button in sync with the total image count.
 - **CSS** is plain (no preprocessor). Use the existing custom properties and the
   `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
-- **Scroll animations:** elements get class `.reveal`; `main.js` adds `.is-visible`
-  via IntersectionObserver with a stagger. Respect `prefers-reduced-motion`.
-- **Reviews carousel:** `.reviews` section between Gallery and Trust. Slides are
+- **Scroll animations:** text/elements get `.reveal` (fade-up); image wrappers get
+  `.reveal-img`, which scales + fades the **direct `<img>` child** into place (gallery
+  tiles also clip-wipe upward). `main.js` observes both via one IntersectionObserver
+  and adds `.is-visible` with a stagger. Full-bleed photos (`hero__media`, `.band__img`)
+  carry a `data-parallax="<px>"` attribute and drift slower than the page; `main.js`
+  applies an rAF-throttled transform with a computed scale so no edge gap is exposed.
+  Everything is disabled/neutralised under `prefers-reduced-motion`.
+- **Reviews carousel:** `.reviews` section between the lifestyle band and Trust. Slides are
   `.review` figures stacked absolutely and cross-faded via `.is-active`; `main.js`
   builds the `.reviews__dot` nav into `#reviews-dots`. Rotation is **driven by the
   progress indicator** (`.reviews__bar`): the bar's CSS `@keyframes reviewProgress`

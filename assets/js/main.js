@@ -42,7 +42,7 @@
   });
 
   /* ---------- Staggered scroll reveal ---------- */
-  var reveals = document.querySelectorAll(".reveal");
+  var reveals = document.querySelectorAll(".reveal, .reveal-img");
 
   if ("IntersectionObserver" in window) {
     var observer = new IntersectionObserver(function (entries, obs) {
@@ -58,6 +58,44 @@
     reveals.forEach(function (el) { observer.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add("is-visible"); });
+  }
+
+  /* ---------- Parallax drift on full-bleed photos ----------
+     Marked-up elements ([data-parallax]) move slower than the page for depth.
+     The drift is contained by a computed scale so no edge gap is ever exposed.
+     rAF-throttled, passive, and disabled under reduced-motion. */
+  var parallaxEls = document.querySelectorAll("[data-parallax]");
+  var reduceMotionPx = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (parallaxEls.length && !reduceMotionPx) {
+    var ticking = false;
+
+    function applyParallax() {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      for (var i = 0; i < parallaxEls.length; i++) {
+        var el = parallaxEls[i];
+        var rect = el.getBoundingClientRect();
+        if (rect.bottom < -240 || rect.top > vh + 240) continue; // skip off-screen
+        var travel = parseFloat(el.getAttribute("data-parallax")) || 20;
+        var center = rect.top + rect.height / 2;
+        var prog = (center - vh / 2) / (vh / 2 + rect.height / 2); // ~ -1 .. 1
+        if (prog > 1) prog = 1; else if (prog < -1) prog = -1;
+        var y = (-prog * travel).toFixed(1);
+        // scale just big enough to hide the +/- travel (plus a small buffer)
+        var scale = 1 + (travel * 2 + 10) / rect.height;
+        el.style.transform = "translate3d(0," + y + "px,0) scale(" + scale.toFixed(3) + ")";
+      }
+      ticking = false;
+    }
+
+    function onParallaxScroll() {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(applyParallax); }
+    }
+
+    window.addEventListener("scroll", onParallaxScroll, { passive: true });
+    window.addEventListener("resize", onParallaxScroll, { passive: true });
+    applyParallax();
   }
 
   /* ---------- Enquiry form: AJAX submit + inline success ---------- */

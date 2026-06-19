@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=7" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=8" />
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -105,7 +105,7 @@
 
     <!-- ============ HERO ============ -->
     <section class="hero" aria-label="Introduction">
-      <div class="hero__media" role="img" aria-label="A dark, atmospheric fine dining scene"></div>
+      <div class="hero__media" role="img" aria-label="A dark, atmospheric fine dining scene" data-parallax="34"></div>
       <div class="hero__scrim"></div>
 
       <div class="hero__content">
@@ -130,9 +130,12 @@
     <!-- ============ ABOUT ============ -->
     <section class="about" id="about" aria-label="About Shabba">
       <div class="about__grid">
-        <figure class="about__media reveal">
+        <figure class="about__media reveal-img">
           <img src="assets/images/about.jpg"
-               alt="Shabba — the chef behind Cooking with Shabba" loading="lazy" />
+               alt="Shabba — the chef behind Cooking with Shabba, in his branded apron" loading="lazy" />
+          <span class="about__accent reveal" aria-hidden="true">
+            <img src="assets/images/about-detail.jpg" alt="" loading="lazy" />
+          </span>
           <figcaption class="about__creds">
             <span>5★ Food Hygiene</span>
             <span class="dot">·</span>
@@ -159,7 +162,7 @@
 
     <!-- ============ IMAGE BAND — full-bleed, woven between sections ============ -->
     <section class="band" aria-label="Caribbean dining">
-      <img class="gallery-img band__img" src="assets/images/band-1.jpg" alt="Cooking with Shabba — glazed BBQ wings and fried chicken" loading="lazy" />
+      <img class="gallery-img band__img" src="assets/images/band-1.jpg" alt="Cooking with Shabba — glazed BBQ wings and fried chicken" loading="lazy" data-parallax="24" />
       <div class="band__scrim"></div>
       <p class="band__line reveal"><span class="rule"></span>Plated with intention, served with soul</p>
     </section>
@@ -172,7 +175,7 @@
       </header>
 
       <div class="menu__layout">
-        <figure class="menu__media reveal">
+        <figure class="menu__media reveal-img">
           <img class="gallery-img" src="assets/images/menu.jpg" alt="Cooking with Shabba — Caribbean rice and peas" loading="lazy" />
         </figure>
 
@@ -204,7 +207,7 @@
 
     <!-- ============ IMAGE BAND — full-bleed, woven between sections ============ -->
     <section class="band band--tall" aria-label="In the moment">
-      <img class="gallery-img band__img" src="assets/images/band-2.jpg" alt="Cooking with Shabba — a stacked beef burger slider" loading="lazy" />
+      <img class="gallery-img band__img" src="assets/images/band-2.jpg" alt="Cooking with Shabba — a stacked beef burger slider" loading="lazy" data-parallax="24" />
       <div class="band__scrim"></div>
       <p class="band__line band__line--right reveal">Caribbean culture, in every detail<span class="rule"></span></p>
     </section>
@@ -216,38 +219,56 @@
         <h2 class="gallery__heading reveal">Gallery</h2>
       </header>
 
-      <!-- Preview tiles — open the lightbox at their own index -->
+      <!-- Curated asymmetric mosaic — duotone portraits woven with colour food.
+           Each tile opens the lightbox at its own index. -->
       <div class="gallery__grid" id="gallery-grid">
-        <button type="button" class="gallery__cell gallery__cell--tall reveal" data-lightbox="0" aria-label="Open gallery at photo 1">
-          <img class="gallery-img" src="assets/images/gallery-1.jpg" alt="Cooking with Shabba — Shabba in his chef apron" loading="lazy" />
+        <button type="button" class="gallery__cell gallery__cell--tall reveal-img" data-lightbox="0" aria-label="Open gallery at photo 1">
+          <img class="gallery-img" src="assets/images/gallery-1.jpg" alt="Cooking with Shabba — Shabba reading the brand feature" loading="lazy" />
           <span class="gallery__zoom" aria-hidden="true"></span>
         </button>
-        <button type="button" class="gallery__cell reveal" data-lightbox="1" aria-label="Open gallery at photo 2">
-          <img class="gallery-img" src="assets/images/gallery-2.jpg" alt="Cooking with Shabba — Shabba and the brand feature" loading="lazy" />
+        <button type="button" class="gallery__cell reveal-img" data-lightbox="1" aria-label="Open gallery at photo 2">
+          <img class="gallery-img" src="assets/images/gallery-2.jpg" alt="Cooking with Shabba — sticky glazed BBQ wings" loading="lazy" />
           <span class="gallery__zoom" aria-hidden="true"></span>
         </button>
-        <button type="button" class="gallery__cell reveal" data-lightbox="2" aria-label="Open gallery at photo 3">
-          <img class="gallery-img" src="assets/images/gallery-3.jpg" alt="Cooking with Shabba — Shabba presenting the brand" loading="lazy" />
+        <button type="button" class="gallery__cell reveal-img" data-lightbox="2" aria-label="Open gallery at photo 3">
+          <img class="gallery-img" src="assets/images/gallery-3.jpg" alt="Cooking with Shabba — Shabba seated portrait" loading="lazy" />
+          <span class="gallery__zoom" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="gallery__cell gallery__cell--wide reveal-img" data-lightbox="3" aria-label="Open gallery at photo 4">
+          <img class="gallery-img" src="assets/images/gallery-4.jpg" alt="Cooking with Shabba — a relaxed Caribbean dining moment at home" loading="lazy" />
+          <span class="gallery__zoom" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="gallery__cell reveal-img" data-lightbox="4" aria-label="Open gallery at photo 5">
+          <img class="gallery-img" src="assets/images/gallery-5.jpg" alt="Cooking with Shabba — a full Caribbean buffet spread" loading="lazy" />
+          <span class="gallery__zoom" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="gallery__cell reveal-img" data-lightbox="5" aria-label="Open gallery at photo 6">
+          <img class="gallery-img" src="assets/images/gallery-6.jpg" alt="Cooking with Shabba — Shabba in his branded apron" loading="lazy" />
           <span class="gallery__zoom" aria-hidden="true"></span>
         </button>
       </div>
 
-      <!-- The rest of the set — shown only inside the lightbox (loads on demand) -->
+      <!-- Extra food shots — shown only inside the lightbox (loads on demand) -->
       <div class="gallery__more" id="gallery-more" hidden aria-hidden="true">
-        <img class="gallery-img" src="assets/images/gallery-4.jpg" alt="Cooking with Shabba — the dining experience at home" />
-        <img class="gallery-img" src="assets/images/gallery-5.jpg" alt="Cooking with Shabba — Shabba reading the feature" />
-        <img class="gallery-img" src="assets/images/gallery-6.jpg" alt="Cooking with Shabba — serving Caribbean dishes" />
         <img class="gallery-img" src="assets/images/band-1.jpg" alt="Cooking with Shabba — glazed BBQ wings and fried chicken" />
         <img class="gallery-img" src="assets/images/band-2.jpg" alt="Cooking with Shabba — a stacked beef burger slider" />
+        <img class="gallery-img" src="assets/images/menu.jpg" alt="Cooking with Shabba — Caribbean rice and peas" />
       </div>
 
       <div class="gallery__actions reveal">
         <button type="button" class="gallery__view" id="gallery-view">
-          View Full Gallery <span class="gallery__view-count">8 Photos</span>
+          View Full Gallery <span class="gallery__view-count">9 Photos</span>
         </button>
       </div>
 
       <p class="gallery__label reveal"><em>Gallery updated as events happen — follow <a href="https://www.instagram.com/cookingwithshabba" target="_blank" rel="noopener">@cookingwithshabba</a> for the latest.</em></p>
+    </section>
+
+    <!-- ============ IMAGE BAND — the brand/at-home experience ============ -->
+    <section class="band band--lifestyle" aria-label="The experience at home">
+      <img class="gallery-img band__img" src="assets/images/band-lifestyle.jpg" alt="Cooking with Shabba — a relaxed Caribbean dining moment at home" loading="lazy" data-parallax="22" />
+      <div class="band__scrim"></div>
+      <p class="band__line reveal"><span class="rule"></span>Caribbean luxury, brought to your table</p>
     </section>
 
     <!-- ============ REVIEWS — auto-rotating ============ -->
@@ -497,6 +518,6 @@
     <button id="cookie-accept">Accept</button>
   </div>
 
-  <script src="assets/js/main.js?v=6" defer></script>
+  <script src="assets/js/main.js?v=7" defer></script>
 </body>
 </html>

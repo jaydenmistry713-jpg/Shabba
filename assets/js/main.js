@@ -291,22 +291,4 @@
     });
   }
 
-  /* ---------- Cookie notice ---------- */
-  var cookie = document.getElementById("cookie");
-  var accept = document.getElementById("cookie-accept");
-  var KEY = "cws-cookie-consent";
-
-  try {
-    if (!localStorage.getItem(KEY)) {
-      // small delay so it doesn't fight the hero entrance
-      setTimeout(function () { cookie.hidden = false; }, 1200);
-    }
-  } catch (err) {
-    cookie.hidden = false;
-  }
-
-  accept.addEventListener("click", function () {
-    try { localStorage.setItem(KEY, "1"); } catch (err) {}
-    cookie.hidden = true;
-  });
 })();

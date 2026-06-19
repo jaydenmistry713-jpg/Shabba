@@ -90,8 +90,8 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
 - **CSS** is plain (no preprocessor). Use the existing custom properties and the
   `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
 - **Scroll animations:** text/elements get `.reveal` (fade-up); image wrappers get
-  `.reveal-img`, which scales + fades the **direct `<img>` child** into place (gallery
-  tiles also clip-wipe upward). `main.js` observes both via one IntersectionObserver
+  `.reveal-img`, which scales + fades the **direct `<img>` child** into place (used on
+  about/menu media and every gallery tile). `main.js` observes both via one IntersectionObserver
   and adds `.is-visible` with a stagger. Full-bleed photos (`hero__media`, `.band__img`)
   carry a `data-parallax="<px>"` attribute and drift slower than the page; `main.js`
   applies an rAF-throttled transform with a computed scale so no edge gap is exposed.

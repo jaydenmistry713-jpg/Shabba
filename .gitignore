@@ -15,6 +15,10 @@ node_modules/
 # Source photo originals — optimised versions ship in assets/images/
 shabbaimages/
 
-# Local-only review screenshots and one-off image-processing script
+# Local-only dev tooling: review screenshots, image-processing + screenshot
+# scripts, and the npm deps they pull in (the site itself has no build step)
 /_*.png
+/_*.cjs
 /process-images.cjs
+/package.json
+/package-lock.json

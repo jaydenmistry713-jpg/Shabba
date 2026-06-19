@@ -111,7 +111,7 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   default). The `+`/`−` toggle is the `.faq__icon` pseudo-elements.
 - **JS** is a single IIFE in `main.js`, ES5-safe, no dependencies.
 
-## Deployment (CSS cache-busting)
+## Deployment (cache-busting)
 
 `netlify.toml` caches everything under `/assets/*` for **1 year as immutable**.
 This is great for performance but means browsers will never re-fetch a file unless
@@ -124,6 +124,30 @@ reason. Bump that `?v=N` whenever `main.js` changes, or returning visitors keep
 running stale JS against new HTML (this is what made the gallery lightbox button
 appear dead — old cached `main.js` had no handler for it). Keep the CSS and JS
 version numbers moving forward as you edit each file.
+
+**It applies to images too.** If you re-process an image but keep the same filename
+(e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
+treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
+on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
+safe). New filenames don't need it. Current versions: `styles.css?v=9`,
+`main.js?v=7`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2`.
+
+## Local tooling (not shipped — all gitignored)
+
+Dev-only helpers in the repo root, plus the `node_modules`/`package*.json` they pull
+in (the site itself still has **no build step**):
+
+- `process-images.cjs` — re-crops `shabbaimages/` originals into `assets/images/`
+  and bakes the colour-food / warm-duotone treatments. `node process-images.cjs`.
+  Borrows `sharp` from the global netlify-cli install. The duotone is deterministic,
+  so unchanged jobs produce byte-identical output (only genuinely retuned images show
+  as modified in `git status` — handy for knowing which need a `?v` bump).
+- `_shot.cjs` — visual QA. Drives installed Chrome via `puppeteer-core` (headless),
+  scrolls to fire lazy-load + reveals, then screenshots each section at desktop
+  (1440) and mobile (390) to `_shot-{d,m}-*.png`. **Always re-render and look** after
+  image/layout changes — this is how the empty-gallery and head-crop bugs were caught.
+- `_diag.cjs` — one-off DOM probe (e.g. reading computed `clip-path` / `.is-visible`
+  state) when a screenshot shows something wrong but the cause isn't obvious.
 
 ## Hard requirements (don't break these)
 
@@ -143,6 +167,8 @@ version numbers moving forward as you edit each file.
 
 - `[DISCOUNT_CODE]` and `[HELLOFRESH_LINK]` in the HelloFresh section
 
-Done: real shoot photos wired into hero/about/bands/menu/gallery (+ lightbox),
-favicons + touch icons, the OG image (`/assets/og-image.jpg`, also used by the
-JSON-LD `image`), and the reviews/testimonials carousel.
+Done: real shoot photos woven through the page with intent — colour food in
+hero/bands/menu, warm-duotone portraits in about (+ overlapping food accent) and a
+curated gallery mosaic, plus a lifestyle/brand band between gallery and reviews; image
+scroll-reveals (`.reveal-img`) and parallax drift; favicons + touch icons; the OG image
+(`/assets/og-image.jpg`, also used by the JSON-LD `image`); and the reviews carousel.

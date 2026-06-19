@@ -27,7 +27,7 @@ sitemap.xml             Single-URL sitemap
 netlify.toml            /privacy → /privacy.html redirect, security headers, asset caching
 assets/css/styles.css   All styling (CSS custom properties at :root)
 assets/js/main.js        Nav scroll, mobile menu, scroll reveal + image unveil, photo parallax, reviews carousel, gallery lightbox, AJAX form submit, cookie notice
-assets/images/          Real brand photos (hero, about + about-detail accent, 2 food bands, lifestyle band, menu, 6 gallery tiles + lightbox), favicons, og-image
+assets/images/          Real brand photos (hero, about + about-detail accent, 2 food bands, lifestyle band, menu, 6 gallery tiles + lightbox), the transparent chef logo (logo.png), favicons, og-image
 site.webmanifest        PWA manifest (icon-192/512, theme colour)
 shabba_PRD.md           Full product spec
 prompt.txt              Original build brief
@@ -105,6 +105,11 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   `prefers-reduced-motion` (first review stays shown, progress bar hidden). Reviews
   are **real guest quotes** extracted from social DMs, lightly tidied for spelling
   and anonymised to initials/first name.
+- **Hero:** centred stack — the chef logo emblem (`.hero__logo`, `assets/images/logo.png`,
+  a transparent cut-out of the cartoon chef badge), eyebrow, an oversized centred
+  `.hero__title` ("Cooking / with / Shabba"), a tagline flanked by two gold `.rule`s,
+  and the CTA; centred `.hero__scroll` cue at the bottom. The logo is intentionally a
+  different (illustrated) style from the photographic luxury theme — keep it small.
 - **FAQ:** `.faq` section just before the footer, built from native
   `<details class="faq__item">`/`<summary class="faq__q">` (no JS — accessible by
   default). The `+`/`−` toggle is the `.faq__icon` pseudo-elements.

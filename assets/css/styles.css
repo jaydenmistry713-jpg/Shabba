@@ -236,7 +236,7 @@ a { color: inherit; text-decoration: none; }
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   overflow: hidden;
 }
 .hero__media {
@@ -258,7 +258,17 @@ a { color: inherit; text-decoration: none; }
   max-width: var(--maxw);
   width: 100%;
   margin: 0 auto;
-  padding: 0 var(--gut) clamp(5rem, 12vh, 9rem);
+  padding: clamp(5.5rem, 12vh, 8rem) var(--gut) clamp(3rem, 8vh, 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.hero__logo {
+  width: clamp(112px, 13vw, 168px);
+  height: auto;
+  margin-bottom: clamp(1.1rem, 2.6vh, 1.8rem);
+  filter: drop-shadow(0 12px 34px rgba(0, 0, 0, 0.55));
 }
 .hero__eyebrow {
   font-size: 0.78rem;
@@ -270,27 +280,29 @@ a { color: inherit; text-decoration: none; }
 .hero__title {
   font-family: var(--serif);
   font-weight: 500;
-  line-height: 0.92;
+  line-height: 0.9;
   letter-spacing: -0.01em;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
-.hero__title span { display: block; font-size: clamp(3.4rem, 13vw, 9.5rem); }
+.hero__title span { display: block; font-size: clamp(4rem, 14.5vw, 11rem); }
 .hero__title-with {
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(2rem, 6vw, 4rem) !important;
+  font-size: clamp(2.2rem, 6.5vw, 4.4rem) !important;
   color: var(--text-mute);
-  margin-left: clamp(2rem, 12vw, 9rem);
+  margin: 0;
 }
 .hero__title-gold { color: var(--gold); }
 
 .hero__tagline {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.4rem;
-  margin: 2.2rem 0 2.8rem;
-  max-width: 540px;
+  margin: 2.2rem auto 2.8rem;
+  max-width: 640px;
 }
 .hero__tagline .rule {
   flex: 0 0 auto;
@@ -319,8 +331,9 @@ a { color: inherit; text-decoration: none; }
 
 .hero__scroll {
   position: absolute;
-  right: var(--gut);
-  bottom: clamp(2rem, 5vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: clamp(1.4rem, 4vh, 2.4rem);
   z-index: 2;
   font-size: 0.68rem;
   letter-spacing: 0.28em;
@@ -1443,7 +1456,6 @@ a { color: inherit; text-decoration: none; }
 
   .field-row { grid-template-columns: 1fr; gap: 0; }
   .footer__bottom { flex-direction: column; align-items: flex-start; }
-  .hero__title-with { margin-left: 1.5rem; }
 
   /* taller stage so longer reviews don't clip when stacked */
   .reviews__track { min-height: 19rem; }

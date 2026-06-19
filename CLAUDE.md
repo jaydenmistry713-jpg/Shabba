@@ -36,15 +36,14 @@ prompt.txt              Original build brief
 Real shoot photos live in `assets/images/` (optimised JPGs), processed from the
 originals in `shabbaimages/` (untracked) by `process-images.cjs` (gitignored;
 re-run with `node process-images.cjs` — it borrows `sharp` from the global
-netlify-cli). **Two photo treatments, applied at the source so they're baked in:**
-food shots stay in **colour** (warm/dark — hero, the two food bands, menu accent,
-the colour gallery tiles); the white-studio **portrait/lifestyle shots are converted
-to a warm low-key duotone** (greyscale → tonal range pulled down → red-gold `.tint`
-→ vignette) so the clinical white backgrounds recede into the candle-lit layout
-instead of glaring. This colour-food / duotone-people split is the deliberate
-editorial look — keep it when swapping images, and keep the lighter CSS tone filters
-on `.about__media`/`.band__img`/`.gallery__cell`/`.menu__media` on top. Favicons + the
-OG image were generated from the chef-badge logo and the food spread respectively.
+netlify-cli). **All photos are kept in their natural colour** (the `colour()` job:
+mild saturation/brightness + a soft vignette, baked in). The white-studio portrait/
+lifestyle shots therefore read brighter than the dark sections — the vignette plus
+the CSS edge-fades (about bleed, band/menu fades) and a light CSS `brightness()`/
+`contrast()` on `.about__media`/`.band__img`/`.gallery__cell`/`.menu__media` settle
+them in without recolouring. (A warm low-key `duotone()` job still exists in the
+script if a toned look is ever wanted again, but it is not used.) Favicons + the OG
+image were generated from the chef-badge logo and the food spread respectively.
 
 ## Running it
 
@@ -78,7 +77,7 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   art-directed layered feel; and a curated gallery. All swappable photos keep
   `class="gallery-img"`.
 - **Gallery + lightbox:** `.gallery__grid` is a curated **asymmetric mosaic** of 6
-  `<button>` tiles (duotone portraits interleaved with colour food; sizes via
+  `<button>` tiles (portraits interleaved with food; sizes via
   `--tall`/`--wide`), each with a `data-lightbox` index and a `.gallery__zoom` "+"
   cue. Three extra food shots live in `#gallery-more` (`hidden`, lightbox-only).
   `main.js` builds the lightbox list from grid imgs **then** `#gallery-more` imgs
@@ -138,10 +137,11 @@ Dev-only helpers in the repo root, plus the `node_modules`/`package*.json` they 
 in (the site itself still has **no build step**):
 
 - `process-images.cjs` — re-crops `shabbaimages/` originals into `assets/images/`
-  and bakes the colour-food / warm-duotone treatments. `node process-images.cjs`.
-  Borrows `sharp` from the global netlify-cli install. The duotone is deterministic,
-  so unchanged jobs produce byte-identical output (only genuinely retuned images show
-  as modified in `git status` — handy for knowing which need a `?v` bump).
+  and bakes the natural-colour treatment (soft vignette + mild tone). `node
+  process-images.cjs`. Borrows `sharp` from the global netlify-cli install. Processing
+  is deterministic, so unchanged jobs produce byte-identical output (only genuinely
+  retuned images show as modified in `git status` — handy for knowing which need a
+  `?v` bump).
 - `_shot.cjs` — visual QA. Drives installed Chrome via `puppeteer-core` (headless),
   scrolls to fire lazy-load + reveals, then screenshots each section at desktop
   (1440) and mobile (390) to `_shot-{d,m}-*.png`. **Always re-render and look** after
@@ -167,8 +167,8 @@ in (the site itself still has **no build step**):
 
 - `[DISCOUNT_CODE]` and `[HELLOFRESH_LINK]` in the HelloFresh section
 
-Done: real shoot photos woven through the page with intent — colour food in
-hero/bands/menu, warm-duotone portraits in about (+ overlapping food accent) and a
-curated gallery mosaic, plus a lifestyle/brand band between gallery and reviews; image
+Done: real shoot photos (all natural colour) woven through the page with intent —
+food in hero/bands/menu, a portrait + overlapping food accent in about, and a curated
+gallery mosaic, plus a lifestyle/brand band between gallery and reviews; image
 scroll-reveals (`.reveal-img`) and parallax drift; favicons + touch icons; the OG image
 (`/assets/og-image.jpg`, also used by the JSON-LD `image`); and the reviews carousel.

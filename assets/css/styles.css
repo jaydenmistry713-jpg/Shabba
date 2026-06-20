@@ -437,7 +437,7 @@ a { color: inherit; text-decoration: none; }
    the coffee table) can both read instead of landing on the empty sofa middle. */
 .band--lifestyle {
   height: clamp(420px, 78vh, 760px);
-  --edge-top: var(--bg);
+  --edge-top: var(--bg-alt);   /* gallery above is now --bg-alt */
   --edge-bot: var(--bg-alt);
 }
 /* bias the crop high so his head/face reads at the top (the table/laptop scene
@@ -520,7 +520,6 @@ a { color: inherit; text-decoration: none; }
   padding: 0;                  /* image meets the section's top & bottom edges */
   background: var(--bg-alt);
 }
-.feature--alt { background: var(--bg-alt); }   /* both food features sit on --bg-alt */
 .feature__grid {
   display: grid;
   grid-template-columns: 1fr clamp(260px, 42vw, 560px);  /* caption | image */
@@ -680,7 +679,10 @@ a { color: inherit; text-decoration: none; }
    GALLERY
    ============================================================ */
 .gallery {
-  background: var(--bg);
+  /* sits on --bg-alt (menu above is --bg) + a gold hairline so the gallery's
+     start still reads now that the old --bg-alt feature section before it is gone */
+  background: var(--bg-alt);
+  border-top: 1px solid rgba(139, 114, 54, 0.18);
   padding: clamp(5rem, 12vh, 9rem) var(--gut);
 }
 .gallery__head {

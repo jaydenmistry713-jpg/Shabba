@@ -73,14 +73,15 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   - **`.feature`** — a two-column block (caption left / image right) that replaces the
     old food bands. The photo fills a tall `.feature__media` panel that bleeds to the
     **right** page edge and dissolves into the section on its inner (left) edge; an
-    an editorial `.feature__line` (big serif) sits in the negative space.
+    editorial `.feature__line` (big serif) sits in the negative space.
     The section has **no vertical padding** and the grid is `align-items: stretch` with a
     `min-height`, so the photo's **top & bottom edges meet the section's colour-change
     boundaries** (only the inner edge fades; top/bottom are hard). The caption is
     `align-self: center`. A tall frame on a landscape dish shows the whole stack (full
-    height), trimming only the sides. Two instances: BBQ wings (after about) and the
-    slider (`.feature--alt`, after the menu). Both sit on `--bg-alt`, alternating tones
-    with about/menu/gallery (all `--bg`).
+    height), trimming only the sides. **One instance now**: the BBQ-wings "At the Table"
+    feature after about (the old slider "In the Detail" feature was removed and its photo
+    moved into the gallery). It sits on `--bg-alt`; tones alternate
+    about(`--bg`) → feature(`--bg-alt`) → menu(`--bg`) → gallery(`--bg-alt`).
   - **Menu intro** — the signature rice photo is folded **into** the menu: `.menu__intro`
     pairs a left-bleed/dissolving `.menu__media` panel (top edge meets the section top —
     `.menu` has no top padding — bottom-padding kept for the list) with the `.menu__head`
@@ -97,17 +98,20 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
     `≤860px` (same as about).
 
   All swappable photos keep `class="gallery-img"`. The food photos
-  (`band-1.jpg`/`band-2.jpg`/`menu.jpg`) keep their filenames — still used here and in
-  the `#gallery-more` lightbox set.
-- **Gallery + lightbox:** `.gallery__grid` is a curated **asymmetric mosaic** of 6
-  `<button>` tiles (portraits interleaved with food; sizes via
-  `--tall`/`--wide`), each with a `data-lightbox` index and a `.gallery__zoom` "+"
-  cue. The three **portrait** tiles (`data-lightbox` 0/2/5) carry a CSS
-  `object-position: center N%` so `cover` focuses on Shabba's **face** rather than
-  centre-cropping to his torso. Six extra shots live in `#gallery-more` (`hidden`,
-  lightbox-only): the three food dishes plus three further portrait/brand shots
-  (`gallery-7/8/9.jpg`). `main.js` builds the lightbox list from grid imgs **then**
-  `#gallery-more` imgs (so tile indices line up) — **12 total**; the `w=800`→`w=1600`
+  (`band-1.jpg`/`band-2.jpg`/`menu.jpg`) keep their filenames — still used (`band-2.jpg`
+  is now a visible gallery tile) and/or in the `#gallery-more` lightbox set.
+- **Gallery + lightbox:** the gallery sits on `--bg-alt` with a gold hairline
+  `border-top` so its start still reads (the `--bg-alt` feature that used to precede it
+  is gone). `.gallery__grid` is a curated **asymmetric mosaic** of **7** `<button>` tiles
+  (portraits interleaved with food; sizes via `--tall`/`--wide` — `band-2.jpg`, the
+  slider moved out of the old feature, is the closing `--wide` tile, `data-lightbox` 6),
+  each with a `data-lightbox` index and a `.gallery__zoom` "+" cue. The three **portrait**
+  tiles (`data-lightbox` 0/2/5) carry a CSS `object-position: center N%` so `cover`
+  focuses on Shabba's **face** rather than centre-cropping to his torso. Five extra shots
+  live in `#gallery-more` (`hidden`, lightbox-only): `band-1.jpg` + `menu.jpg` + the three
+  portrait/brand shots (`gallery-7/8/9.jpg`). `main.js` builds the lightbox list from grid
+  imgs **then** `#gallery-more` imgs (so tile indices line up) — **12 total**; the
+  `w=800`→`w=1600`
   upscale `.replace` is a harmless no-op on the local files. `.gallery__view`
   ("View Full Gallery") opens `#lightbox` at photo 1; tiles open at their own index.
   Lightbox supports prev/next, dot-free counter, Esc/arrow keys, backdrop-click close,
@@ -167,7 +171,7 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=22`,
+safe). New filenames don't need it. Current versions: `styles.css?v=23`,
 `main.js?v=9`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)

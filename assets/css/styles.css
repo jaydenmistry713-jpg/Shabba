@@ -439,8 +439,9 @@ a { color: inherit; text-decoration: none; }
   --edge-top: var(--bg);
   --edge-bot: var(--bg-alt);
 }
-/* keep the man + newspaper in frame up top and the table/laptop scene below */
-.band--lifestyle .band__img { object-position: center 47%; }
+/* bias the crop high so his head/face reads at the top (the table/laptop scene
+   sits lower in the near-square frame and trims off the bottom on short bands) */
+.band--lifestyle .band__img { object-position: center 14%; }
 .band__img {
   position: absolute;
   inset: 0;

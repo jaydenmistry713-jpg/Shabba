@@ -26,6 +26,8 @@ robots.txt              Crawl rules + sitemap pointer
 sitemap.xml             Single-URL sitemap
 netlify.toml            /privacy → /privacy.html redirect, security headers, asset caching
 assets/css/styles.css   All styling (CSS custom properties at :root)
+assets/css/styles.warm.css  Backup of the previous WARM "stone"/espresso palette — copy
+                        it over styles.css (and bump ?v=) to revert the colour scheme
 assets/js/main.js        Nav scroll, mobile menu, scroll reveal + image unveil, photo parallax, reviews carousel, gallery lightbox, menu-picker modal, AJAX form submit
 assets/images/          Real brand photos (hero, about portrait, 2 food features, lifestyle band, menu, 6 gallery tiles + 3 lightbox extras), the chef-medallion logo (logo.png), favicons, og-image (about-detail.jpg now unused)
 site.webmanifest        PWA manifest (icon-192/512, theme colour)
@@ -57,12 +59,15 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   no purple gradients, no "Our Services"/"Why Choose Us" sections. Think fine-dining
   menu meets magazine.
 - **Fonts:** Cormorant Garamond (display/serif) + DM Sans (body). Never substitute.
-- **Palette** — warm dark "stone" range (candle-lit, not flat black), defined as
-  CSS vars in `styles.css` `:root`: bg-deep `#0E0C0A`, bg `#14110E` (espresso),
-  bg-alt `#1E1A15` (warm charcoal), surface `#2A2620` (stone-grey, lightest panel),
-  text `#F5F0E8`, gold `#C9A84C`, muted gold `#8B7236`. Sections alternate across
-  the bg/bg-alt/surface tones for warmth — **don't flatten back to pure black**.
-  No white/light backgrounds anywhere.
+- **Palette** — **neutral near-black + gold** (the original PRD scheme), defined as
+  CSS vars in `styles.css` `:root`: bg-deep `#080808`, bg `#0A0A0A` (near-black, main),
+  bg-alt `#0F0F0F` (alt section tone), surface `#141414` (lightest panel), text
+  `#F5F0E8` (off-white — the "white" is always *text*, never a background), gold
+  `#C9A84C`, muted gold `#8B7236`. Sections alternate across the bg/bg-alt/surface
+  tones (subtle, "barely perceptible depth" per the PRD). **No white/light backgrounds
+  anywhere.** Hardcoded dark overlays/scrims use neutral `rgba(8,8,8,…)` /
+  `rgba(10,10,10,…)` to match. A previous **warm "stone"/espresso** variant (bg `#14110E`
+  etc.) is preserved in `styles.warm.css` — copy it back over `styles.css` to revert.
 - **Texture:** a subtle SVG film-grain overlay (`body::after`, ~5% opacity,
   `mix-blend-mode: overlay`) gives every section a hand-finished feel. Disabled
   under `prefers-reduced-motion`.
@@ -171,7 +176,7 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=23`,
+safe). New filenames don't need it. Current versions: `styles.css?v=24`,
 `main.js?v=9`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)

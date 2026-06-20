@@ -109,7 +109,7 @@ a { color: inherit; text-decoration: none; }
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 50;
+  z-index: 60;   /* above the mobile overlay (55) so the burger stays clickable to close */
   transition: background 0.5s var(--ease), backdrop-filter 0.5s var(--ease), border-color 0.5s var(--ease);
   border-bottom: 1px solid transparent;
 }
@@ -351,6 +351,7 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   align-self: stretch;
   min-height: clamp(380px, 56vh, 560px);
+  overflow: hidden;            /* clip the reveal overscan (see .feature__media) */
 }
 .about__media img {
   position: absolute;
@@ -530,6 +531,8 @@ a { color: inherit; text-decoration: none; }
 .feature__media {
   position: relative;
   align-self: stretch;         /* top & bottom edges land on the section boundaries */
+  overflow: hidden;            /* clip the reveal's scale(1.09) overscan so the image
+                                  never spills past the edge fade during the animation */
 }
 .feature__media img {
   position: absolute;
@@ -572,11 +575,6 @@ a { color: inherit; text-decoration: none; }
   background: var(--gold);
   transform: translateY(-0.4em);
 }
-.feature__sub {
-  margin-top: 1.5rem;
-  color: var(--text-mute);
-  max-width: 40ch;
-}
 
 /* ============================================================
    MENU
@@ -602,6 +600,7 @@ a { color: inherit; text-decoration: none; }
 .menu__media {
   position: relative;
   align-self: stretch;
+  overflow: hidden;            /* clip the reveal overscan (see .feature__media) */
 }
 .menu__media img {
   position: absolute;

@@ -73,7 +73,7 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   - **`.feature`** — a two-column block (caption left / image right) that replaces the
     old food bands. The photo fills a tall `.feature__media` panel that bleeds to the
     **right** page edge and dissolves into the section on its inner (left) edge; an
-    editorial `.feature__line` (big serif) + `.feature__sub` sit in the negative space.
+    an editorial `.feature__line` (big serif) sits in the negative space.
     The section has **no vertical padding** and the grid is `align-items: stretch` with a
     `min-height`, so the photo's **top & bottom edges meet the section's colour-change
     boundaries** (only the inner edge fades; top/bottom are hard). The caption is
@@ -116,8 +116,12 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
 - **CSS** is plain (no preprocessor). Use the existing custom properties and the
   `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
 - **Scroll animations:** text/elements get `.reveal` (fade-up); image wrappers get
-  `.reveal-img`, which scales + fades the **direct `<img>` child** into place (used on
-  about/menu media and every gallery tile). `main.js` observes both via one IntersectionObserver
+  `.reveal-img`, which scales (`1.09`) + fades the **direct `<img>` child** into place
+  (used on about/feature/menu media and every gallery tile). **Any `.reveal-img` whose
+  `<img>` is `position:absolute; inset:0` must set `overflow:hidden`** (gallery cells,
+  `.about__media`, `.feature__media`, `.menu__media`) — otherwise the scale overscan
+  spills past the edge-fade `::after` mid-animation and a hard image edge flashes into
+  the adjacent copy. `main.js` observes both via one IntersectionObserver
   and adds `.is-visible` with a stagger. Full-bleed photos (`hero__media`, `.band__img`)
   carry a `data-parallax="<px>"` attribute and drift slower than the page; `main.js`
   applies an rAF-throttled transform with a computed scale so no edge gap is exposed.
@@ -163,7 +167,7 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=21`,
+safe). New filenames don't need it. Current versions: `styles.css?v=22`,
 `main.js?v=9`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)
@@ -207,14 +211,16 @@ in (the site itself still has **no build step**):
   backdrop-close, body-scroll lock).
 - Gallery `<img>` tags must keep `class="gallery-img"` so photos can be swapped by
   filename replacement.
-- All 14 menu items present; HelloFresh section keeps the `[DISCOUNT_CODE]` and
-  `[HELLOFRESH_LINK]` tokens until real values are dropped in.
+- All 14 menu items present; HelloFresh section keeps the `[HELLOFRESH_LINK]` token
+  until the real URL is dropped in (the discount code is now live:
+  `HFAMBCOOKINGWITHSHABBA`).
 - Keep SEO head intact (title, meta description, OG tags, canonical, `lang`, semantic
   landmarks, `aria-label`s, `loading="lazy"` on below-fold images).
 
 ## Pending content (placeholders to replace before go-live)
 
-- `[DISCOUNT_CODE]` and `[HELLOFRESH_LINK]` in the HelloFresh section
+- `[HELLOFRESH_LINK]` in the HelloFresh section (the `Claim Discount` CTA href). The
+  discount code is already live (`HFAMBCOOKINGWITHSHABBA`).
 
 Done: real shoot photos (all natural colour) woven through the page with intent —
 food in the hero, two contained `.feature` blocks + the menu intro, a portrait in about,

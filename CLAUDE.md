@@ -211,16 +211,14 @@ in (the site itself still has **no build step**):
   backdrop-close, body-scroll lock).
 - Gallery `<img>` tags must keep `class="gallery-img"` so photos can be swapped by
   filename replacement.
-- All 14 menu items present; HelloFresh section keeps the `[HELLOFRESH_LINK]` token
-  until the real URL is dropped in (the discount code is now live:
-  `HFAMBCOOKINGWITHSHABBA`).
+- All 14 menu items present; the HelloFresh section is now fully live (real
+  ambassador code `HFAMBCOOKINGWITHSHABBA` + real `Claim Discount` URL).
 - Keep SEO head intact (title, meta description, OG tags, canonical, `lang`, semantic
   landmarks, `aria-label`s, `loading="lazy"` on below-fold images).
 
 ## Pending content (placeholders to replace before go-live)
 
-- `[HELLOFRESH_LINK]` in the HelloFresh section (the `Claim Discount` CTA href). The
-  discount code is already live (`HFAMBCOOKINGWITHSHABBA`).
+- None — all placeholders are filled (HelloFresh code + link are live).
 
 Done: real shoot photos (all natural colour) woven through the page with intent —
 food in the hero, two contained `.feature` blocks + the menu intro, a portrait in about,

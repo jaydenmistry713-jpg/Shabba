@@ -71,7 +71,10 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   the adjacent section colour via `--edge-top`/`--edge-bot`), including a
   `.band--lifestyle` brand/at-home strip between the gallery and reviews; a full-bleed
   `.menu__media` banner (`width: 100vw` via `margin-inline: calc(50% - 50vw)`;
-  top/bottom fade into `--bg-alt`) above the `.menu__cols` list; a left-bleed
+  top/bottom fade into `--bg-alt`) above the `.menu__cols` list — a two-up grid of
+  two `.menu__list` columns (items 1–7 / 8–14) that **stays two columns on mobile too**
+  (the `≤600px` rule keeps `1fr 1fr` and just shrinks `.menu__name`/gaps so the longer
+  dishes fit); a left-bleed
   `.about__media` portrait that dissolves into the page, with a small overlapping
   colour food detail (`.about__accent`, hidden when the layout stacks) for an
   art-directed layered feel; and a curated gallery. All swappable photos keep
@@ -106,10 +109,13 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   are **real guest quotes** extracted from social DMs, lightly tidied for spelling
   and anonymised to initials/first name.
 - **Hero:** centred stack — the chef logo emblem (`.hero__logo`, `assets/images/logo.png`,
-  a transparent cut-out of the cartoon chef badge), eyebrow, an oversized centred
-  `.hero__title` ("Cooking / with / Shabba"), a tagline flanked by two gold `.rule`s,
-  and the CTA; centred `.hero__scroll` cue at the bottom. The logo is intentionally a
-  different (illustrated) style from the photographic luxury theme — keep it small.
+  the illustrated chef badge as a clean grey **medallion** — a transparent circle with
+  the chef's face inside and **only his hat protruding from the top**; the rest of the
+  silhouette is cut to the circle, never ragged into the jacket), eyebrow, an oversized
+  centred `.hero__title` ("Cooking / with / Shabba"), a tagline flanked by two gold
+  `.rule`s, and the CTA; centred `.hero__scroll` cue at the bottom. The logo is
+  intentionally a different (illustrated) style from the photographic luxury theme —
+  keep it small. Regenerate it with `generate-logo.cjs` (see Local tooling).
 - **FAQ:** `.faq` section just before the footer, built from native
   `<details class="faq__item">`/`<summary class="faq__q">` (no JS — accessible by
   default). The `+`/`−` toggle is the `.faq__icon` pseudo-elements.
@@ -133,8 +139,8 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=9`,
-`main.js?v=7`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2`.
+safe). New filenames don't need it. Current versions: `styles.css?v=15`,
+`main.js?v=8`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)
 
@@ -147,6 +153,13 @@ in (the site itself still has **no build step**):
   is deterministic, so unchanged jobs produce byte-identical output (only genuinely
   retuned images show as modified in `git status` — handy for knowing which need a
   `?v` bump).
+- `generate-logo.cjs` — rebuilds the hero chef emblem (`assets/images/logo.png`) from
+  the source illustration (`shabbaimages/28007cd5-…Shabaka Robinson.jpg`). Detects the
+  grey medallion circle (centre/radius are baked into the script), keeps the disc as a
+  clean anti-aliased circle, and reconstructs the protruding hat by flood-filling the
+  light-grey studio background away from the borders (the hat's dark sketch outline
+  stops the fill). Borrows `sharp` from the global netlify-cli install. `node
+  generate-logo.cjs`. Bump `logo.png?v=N` in `index.html` after re-running.
 - `_shot.cjs` — visual QA. Drives installed Chrome via `puppeteer-core` (headless),
   scrolls to fire lazy-load + reveals, then screenshots each section at desktop
   (1440) and mobile (390) to `_shot-{d,m}-*.png`. **Always re-render and look** after

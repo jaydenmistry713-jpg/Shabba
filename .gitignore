@@ -20,5 +20,6 @@ shabbaimages/
 /_*.png
 /_*.cjs
 /process-images.cjs
+/generate-logo.cjs
 /package.json
 /package-lock.json

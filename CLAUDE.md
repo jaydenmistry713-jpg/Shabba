@@ -72,21 +72,9 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   `mix-blend-mode: overlay`) gives every section a hand-finished feel. Disabled
   under `prefers-reduced-motion`.
 - **Woven imagery:** every photo is placed with intent and distributed through the
-  page, never pooled. The near-square food shots are **not** full-bleed letterbox
-  bands (that crop badly on desktop) — instead each sits in a contained, art-directed
-  block modelled on the about portrait:
-  - **`.feature`** — a two-column block (caption left / image right) that replaces the
-    old food bands. The photo fills a tall `.feature__media` panel that bleeds to the
-    **right** page edge and dissolves into the section on its inner (left) edge; an
-    editorial `.feature__line` (big serif) sits in the negative space.
-    The section has **no vertical padding** and the grid is `align-items: stretch` with a
-    `min-height`, so the photo's **top & bottom edges meet the section's colour-change
-    boundaries** (only the inner edge fades; top/bottom are hard). The caption is
-    `align-self: center`. A tall frame on a landscape dish shows the whole stack (full
-    height), trimming only the sides. **One instance now**: the BBQ-wings "At the Table"
-    feature after about (the old slider "In the Detail" feature was removed and its photo
-    moved into the gallery). It sits on `--bg-alt`; tones alternate
-    about(`--bg`) → feature(`--bg-alt`) → menu(`--bg`) → gallery(`--bg-alt`).
+  page, never pooled. (There used to be standalone `.feature` blocks for the food shots
+  — both were removed and their photos moved into the gallery; **no `.feature` markup or
+  CSS remains**.) The contained, art-directed image moments now are:
   - **Menu intro** — the signature rice photo is folded **into** the menu: `.menu__intro`
     pairs a left-bleed/dissolving `.menu__media` panel (top edge meets the section top —
     `.menu` has no top padding — bottom-padding kept for the list) with the `.menu__head`
@@ -94,26 +82,30 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
     side padding, since `.menu` itself has none) holds the `.menu__cols` two-up grid of
     two `.menu__list` columns (items 1–7 / 8–14) that **stays two columns on mobile**
     (the `≤600px` rule keeps `1fr 1fr` and shrinks `.menu__name`/gaps so longer dishes fit).
+    The menu sits on **`--bg-alt` with a gold hairline `border-top`** so its start reads on
+    desktop now that the `--bg-alt` "At the Table" feature before it is gone (on mobile the
+    rice banner already shows the start).
   - **`.about__media`** — the left-bleed portrait that dissolves into the page. (The old
     overlapping `.about__accent` food detail was removed; `about-detail.jpg` is now unused.)
   - **`.band--lifestyle`** — the **only** remaining full-bleed `.band` (the man + branded
     newspaper at-home strip between gallery and reviews; near-square so it survives
     full-bleed). Band edges fade into the adjacent section colour via
-    `--edge-top`/`--edge-bot`. `.feature`/`.menu__intro` stack to a photo-led banner at
-    `≤860px` (same as about).
+    `--edge-top`/`--edge-bot`. `.menu__intro` stacks to a photo-led banner at `≤860px`
+    (same as about).
 
-  All swappable photos keep `class="gallery-img"`. The food photos
-  (`band-1.jpg`/`band-2.jpg`/`menu.jpg`) keep their filenames — still used (`band-2.jpg`
-  is now a visible gallery tile) and/or in the `#gallery-more` lightbox set.
-- **Gallery + lightbox:** the gallery sits on `--bg-alt` with a gold hairline
-  `border-top` so its start still reads (the `--bg-alt` feature that used to precede it
-  is gone). `.gallery__grid` is a curated **asymmetric mosaic** of **7** `<button>` tiles
-  (portraits interleaved with food; sizes via `--tall`/`--wide` — `band-2.jpg`, the
-  slider moved out of the old feature, is the closing `--wide` tile, `data-lightbox` 6),
-  each with a `data-lightbox` index and a `.gallery__zoom` "+" cue. The three **portrait**
-  tiles (`data-lightbox` 0/2/5) carry a CSS `object-position: center N%` so `cover`
-  focuses on Shabba's **face** rather than centre-cropping to his torso. Five extra shots
-  live in `#gallery-more` (`hidden`, lightbox-only): `band-1.jpg` + `menu.jpg` + the three
+  Section tones alternate **about(`--bg`) → menu(`--bg-alt`) → gallery(`--bg`)**, each
+  boundary also carrying a gold hairline. All swappable photos keep `class="gallery-img"`.
+  The food photos (`band-1.jpg`/`band-2.jpg`/`menu.jpg`) keep their filenames — `band-1`
+  and `band-2` are now visible gallery tiles; `menu.jpg` is the menu intro + a lightbox extra.
+- **Gallery + lightbox:** the gallery sits on `--bg` with a gold hairline `border-top` so
+  its start still reads. `.gallery__grid` is a curated **asymmetric mosaic** of **8**
+  `<button>` tiles (portraits interleaved with food; sizes via `--tall`/`--wide`; the two
+  food shots that came out of the old features — `band-2.jpg` slider + `band-1.jpg` wings —
+  are the closing 2-up row, `data-lightbox` 6/7), each with a `data-lightbox` index and a
+  `.gallery__zoom` "+" cue. The three **portrait** tiles (`data-lightbox` 0/2/5) carry a CSS
+  `object-position: center N%` so `cover` focuses on Shabba's **face** rather than
+  centre-cropping to his torso. Four extra shots live in `#gallery-more` (`hidden`,
+  lightbox-only): `menu.jpg` + the three
   portrait/brand shots (`gallery-7/8/9.jpg`). `main.js` builds the lightbox list from grid
   imgs **then** `#gallery-more` imgs (so tile indices line up) — **12 total**; the
   `w=800`→`w=1600`
@@ -126,9 +118,9 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
 - **Scroll animations:** text/elements get `.reveal` (fade-up); image wrappers get
   `.reveal-img`, which scales (`1.09`) + fades the **direct `<img>` child** into place
-  (used on about/feature/menu media and every gallery tile). **Any `.reveal-img` whose
+  (used on about/menu media and every gallery tile). **Any `.reveal-img` whose
   `<img>` is `position:absolute; inset:0` must set `overflow:hidden`** (gallery cells,
-  `.about__media`, `.feature__media`, `.menu__media`) — otherwise the scale overscan
+  `.about__media`, `.menu__media`) — otherwise the scale overscan
   spills past the edge-fade `::after` mid-animation and a hard image edge flashes into
   the adjacent copy. `main.js` observes both via one IntersectionObserver
   and adds `.is-visible` with a stagger. Full-bleed photos (`hero__media`, `.band__img`)
@@ -179,7 +171,7 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=24`,
+safe). New filenames don't need it. Current versions: `styles.css?v=25`,
 `main.js?v=9`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)
@@ -233,7 +225,7 @@ in (the site itself still has **no build step**):
 - None — all placeholders are filled (HelloFresh code + link are live).
 
 Done: real shoot photos (all natural colour) woven through the page with intent —
-food in the hero, two contained `.feature` blocks + the menu intro, a portrait in about,
-and a curated gallery mosaic, plus the lifestyle/brand band between gallery and reviews;
+food in the hero, the menu intro, an 8-tile gallery mosaic (food + portraits), and a
+portrait in about, plus the lifestyle/brand band between gallery and reviews;
 image scroll-reveals (`.reveal-img`) and parallax drift; favicons + touch icons; the OG image
 (`/assets/og-image.jpg`, also used by the JSON-LD `image`); and the reviews carousel.

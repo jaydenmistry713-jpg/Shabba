@@ -392,24 +392,6 @@ a { color: inherit; text-decoration: none; }
 
 /* Small colour food detail overlapping the portrait — ties the chef to the
    food and adds an art-directed, layered "magazine" feel. */
-.about__accent {
-  position: absolute;
-  right: clamp(-2.6rem, -2.5vw, -1.4rem);
-  bottom: clamp(2rem, 7vh, 4.5rem);
-  z-index: 3;
-  width: clamp(118px, 16vw, 210px);
-  aspect-ratio: 5 / 6;
-  overflow: hidden;
-  border: 1px solid var(--hair);
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
-}
-.about__accent img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(1.04) brightness(0.96);
-}
-
 .about__heading {
   font-family: var(--serif);
   font-weight: 500;
@@ -487,6 +469,17 @@ a { color: inherit; text-decoration: none; }
 .band::before { top: 0;    background: linear-gradient(var(--edge-top), transparent); }
 .band::after  { bottom: 0; background: linear-gradient(transparent, var(--edge-bot)); }
 
+/* Lifestyle band is a near-square scene — widen the clear centre of the scrim and
+   ease the top/bottom fades so his face (top-left) and the laptop (bottom-right)
+   stay bright instead of dissolving into the vignette. */
+.band--lifestyle .band__scrim {
+  background:
+    linear-gradient(180deg, rgba(14,12,10,0.32) 0%, rgba(14,12,10,0.04) 40%, rgba(14,12,10,0.5) 100%),
+    radial-gradient(140% 120% at 50% 50%, transparent 62%, rgba(14,12,10,0.42));
+}
+.band--lifestyle::before { height: clamp(44px, 13%, 110px); }
+.band--lifestyle::after  { height: clamp(52px, 15%, 130px); }
+
 .band__line {
   position: absolute;
   z-index: 3;
@@ -522,7 +515,7 @@ a { color: inherit; text-decoration: none; }
 .feature {
   position: relative;
   overflow: hidden;
-  padding: clamp(4.5rem, 11vh, 8rem) 0;   /* no side padding so the image bleeds */
+  padding: 0;                  /* image meets the section's top & bottom edges */
   background: var(--bg-alt);
 }
 .feature--alt { background: var(--bg-alt); }   /* both food features sit on --bg-alt */
@@ -530,12 +523,12 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   grid-template-columns: 1fr clamp(260px, 42vw, 560px);  /* caption | image */
   gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: center;
+  align-items: stretch;        /* image column fills the full section height */
+  min-height: clamp(440px, 66vh, 640px);
 }
 .feature__media {
   position: relative;
-  align-self: stretch;
-  min-height: clamp(360px, 54vh, 540px);
+  align-self: stretch;         /* top & bottom edges land on the section boundaries */
 }
 .feature__media img {
   position: absolute;
@@ -545,18 +538,18 @@ a { color: inherit; text-decoration: none; }
   object-fit: cover;
   filter: contrast(1.05) brightness(0.98) saturate(1.04);
 }
-/* dissolve the inner (left) edge + soft top/bottom into the section */
+/* dissolve only the inner (left) edge into the section; top/bottom stay hard so
+   the photo reaches the section's colour-change boundaries */
 .feature__media::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(90deg, var(--bg-alt) 1%, transparent 44%),
-    linear-gradient(0deg, rgba(14,12,10,0.4) 0%, transparent 24%),
-    linear-gradient(180deg, var(--bg-alt) 0%, transparent 14%);
+  background: linear-gradient(90deg, var(--bg-alt) 1%, transparent 44%);
 }
 .feature__body {
+  align-self: center;          /* text stays vertically centred in the tall section */
+  padding: clamp(3rem, 7vh, 5rem) 0;
   padding-left: var(--gut);
   max-width: 34ch;
 }
@@ -589,24 +582,25 @@ a { color: inherit; text-decoration: none; }
    ============================================================ */
 .menu {
   background: var(--bg);
-  padding: clamp(5rem, 12vh, 9rem) 0;   /* no side padding so the intro photo bleeds left */
+  /* no top padding so the intro photo's top edge meets the section boundary;
+     no side padding so it bleeds left. Bottom padding keeps the list off the edge. */
+  padding: 0 0 clamp(5rem, 12vh, 9rem);
   overflow: hidden;
 }
-/* Signature dish photo paired with the menu heading. The photo sits in a tall
-   panel that bleeds to the LEFT page edge and dissolves into the section on its
-   inner edge (mirrors the about block); the heading + intro sit to the right.
-   A tall frame on the landscape bowl shows it whole, trimming only the sides. */
+/* Signature dish photo paired with the menu heading. The photo fills a tall panel
+   that bleeds to the LEFT page edge and to the section's top edge, and dissolves
+   into the section on its inner edge; the heading + intro sit to the right. */
 .menu__intro {
   display: grid;
   grid-template-columns: clamp(260px, 40vw, 540px) 1fr;
   gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: center;
+  align-items: stretch;
+  min-height: clamp(440px, 64vh, 620px);
   margin-bottom: clamp(3.5rem, 8vh, 6rem);
 }
 .menu__media {
   position: relative;
   align-self: stretch;
-  min-height: clamp(360px, 52vh, 540px);
 }
 .menu__media img {
   position: absolute;
@@ -617,17 +611,16 @@ a { color: inherit; text-decoration: none; }
   object-position: center 48%;
   filter: contrast(1.04) brightness(0.96) saturate(1.04);
 }
+/* dissolve only the inner (right) edge; top/bottom stay hard to the edges */
 .menu__media::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(270deg, var(--bg) 1%, transparent 44%),
-    linear-gradient(0deg, rgba(14,12,10,0.4) 0%, transparent 24%),
-    linear-gradient(180deg, var(--bg) 0%, transparent 14%);
+  background: linear-gradient(270deg, var(--bg) 1%, transparent 44%);
 }
 .menu__head {
+  align-self: center;
   padding-right: var(--gut);
   max-width: 48ch;
 }
@@ -1678,16 +1671,16 @@ a { color: inherit; text-decoration: none; }
   }
   .about__body { padding: 2.5rem var(--gut) 0; max-width: none; }
   .about__quote { text-align: left; margin: clamp(3rem, 8vh, 5rem) var(--gut) 0 0; max-width: 100%; }
-  .about__accent { display: none; } /* overlap only reads on the two-column layout */
 
   /* Feature + menu intro: stack to a photo-led banner that fades into the copy
-     below, the same way the about block stacks. */
-  .feature__grid, .menu__intro { grid-template-columns: 1fr; gap: 0; }
+     below, the same way the about block stacks. (Drop the tall desktop min-height
+     so the stacked layout sizes to its content.) */
+  .feature__grid, .menu__intro { grid-template-columns: 1fr; gap: 0; min-height: 0; }
   .feature__media, .menu__media {
     order: -1;                 /* photo leads on mobile */
     min-height: clamp(280px, 56vw, 420px);
   }
-  .feature__body { padding: 2.4rem var(--gut) 0; max-width: none; }
+  .feature__body { align-self: stretch; padding: 2.4rem var(--gut) 0; max-width: none; }
   .feature__media::after {
     background:
       linear-gradient(0deg, var(--bg-alt) 1%, transparent 30%),

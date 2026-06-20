@@ -471,21 +471,28 @@ a { color: inherit; text-decoration: none; }
   --edge-top: var(--bg-alt);
   --edge-bot: var(--bg);
 }
-/* Lifestyle/brand band — sits between the gallery (--bg) and reviews (--bg-alt) */
+/* Lifestyle/brand band — sits between the gallery (--bg) and reviews (--bg-alt).
+   Taller so the near-square scene (chef up top, the food + branded laptop down on
+   the coffee table) can both read instead of landing on the empty sofa middle. */
 .band--lifestyle {
-  height: clamp(360px, 64vh, 640px);
+  height: clamp(420px, 78vh, 760px);
   --edge-top: var(--bg);
   --edge-bot: var(--bg-alt);
 }
-/* bias the crop down to the table/laptop scene rather than empty sofa above */
-.band--lifestyle .band__img { object-position: center 64%; }
+/* keep the man + newspaper in frame up top and the table/laptop scene below */
+.band--lifestyle .band__img { object-position: center 47%; }
+/* Band 1 (BBQ wings) — drop the crop onto the glistening glazed sesame
+   drumstick rather than the soft out-of-focus food behind it. */
+.band:not(.band--tall):not(.band--lifestyle) .band__img { object-position: center 72%; }
+/* Band 2 (slider) — pull up so the whole burger reads (bun + patty), not just bun. */
+.band--tall .band__img { object-position: center 44%; }
 .band__img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: contrast(1.04) brightness(0.85);
+  filter: contrast(1.04) brightness(0.94);
 }
 .band__scrim {
   position: absolute;
@@ -589,8 +596,10 @@ a { color: inherit; text-decoration: none; }
 .menu__media {
   position: relative;
   overflow: hidden;
-  min-height: 340px;
+  min-height: clamp(340px, 34vw, 460px);
 }
+/* show a touch more of the bowl rather than a tight central rice strip */
+.menu__media img { object-position: center 42%; }
 .menu__media img {
   position: absolute;
   inset: 0;

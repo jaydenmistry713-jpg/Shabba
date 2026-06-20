@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=18" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=19" />
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -125,8 +125,6 @@
 
         <a href="#enquire" class="hero__cta reveal">Enquire Now</a>
       </div>
-
-      <a href="#about" class="hero__scroll" aria-label="Scroll to content">Scroll</a>
     </section>
 
     <!-- ============ ABOUT ============ -->
@@ -416,6 +414,16 @@
           </div>
         </div>
 
+        <div class="field field--picker">
+          <span class="field__legend" id="picker-legend">Dishes of Interest <em>(optional)</em></span>
+          <button type="button" class="picker-trigger" id="picker-open" aria-haspopup="dialog" aria-expanded="false">
+            <span class="picker-trigger__text" id="picker-summary">Tap to choose dishes from the menu</span>
+            <span class="picker-trigger__icon" aria-hidden="true"></span>
+          </button>
+          <!-- Submitted with the form; populated by the picker modal -->
+          <input type="hidden" name="menu-selection" id="menu-selection" />
+        </div>
+
         <div class="field">
           <textarea id="message" name="message" rows="3" placeholder=" "></textarea>
           <label for="message">Message / Additional Details</label>
@@ -535,6 +543,25 @@
     <p class="lightbox__count" id="lightbox-count" aria-live="polite"></p>
   </div>
 
-  <script src="assets/js/main.js?v=8" defer></script>
+  <!-- ============ MENU PICKER MODAL ============ -->
+  <!-- Lets visitors tick dishes; the choices populate the form's hidden
+       #menu-selection field. Options are built by main.js from the menu list. -->
+  <div class="picker" id="menu-picker" role="dialog" aria-modal="true" aria-labelledby="picker-title" aria-hidden="true">
+    <div class="picker__panel">
+      <button class="picker__close" id="picker-close" type="button" aria-label="Close dish picker">&times;</button>
+      <header class="picker__head">
+        <p class="section-kicker">Build Your Menu</p>
+        <h3 class="picker__title" id="picker-title">Select Dishes</h3>
+        <p class="picker__intro">Tick anything you'd love to see — a starting point for the conversation, not a fixed order.</p>
+      </header>
+      <div class="picker__grid" id="picker-grid"></div>
+      <div class="picker__actions">
+        <button type="button" class="picker__clear" id="picker-clear">Clear all</button>
+        <button type="button" class="picker__done" id="picker-done">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js?v=9" defer></script>
 </body>
 </html>

@@ -291,4 +291,97 @@
     });
   }
 
+  /* ---------- Menu picker modal ----------
+     A dialog of tick-able dishes (built from the menu list so it never drifts
+     from the real menu). Selections live-update the form's hidden
+     #menu-selection field and the trigger's summary, so they submit with the
+     enquiry. */
+  var picker = document.getElementById("menu-picker");
+  var pickerOpenBtn = document.getElementById("picker-open");
+  var pickerInput = document.getElementById("menu-selection");
+
+  if (picker && pickerOpenBtn && pickerInput) {
+    var pickerGrid = document.getElementById("picker-grid");
+    var pickerClose = document.getElementById("picker-close");
+    var pickerDone = document.getElementById("picker-done");
+    var pickerClear = document.getElementById("picker-clear");
+    var pickerSummary = document.getElementById("picker-summary");
+    var pickerLastFocus = null;
+    var PLACEHOLDER = "Tap to choose dishes from the menu";
+
+    // Build one option per menu dish (the menu list is the single source)
+    document.querySelectorAll("#menu .menu__name").forEach(function (nameEl) {
+      var name = (nameEl.textContent || "").trim();
+      if (!name) return;
+      var label = document.createElement("label");
+      label.className = "picker__opt";
+
+      var cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.value = name;
+      cb.addEventListener("change", syncPicker);
+
+      var box = document.createElement("span");
+      box.className = "picker__box";
+      box.setAttribute("aria-hidden", "true");
+
+      var text = document.createElement("span");
+      text.className = "picker__name";
+      text.textContent = name;
+
+      label.appendChild(cb);
+      label.appendChild(box);
+      label.appendChild(text);
+      pickerGrid.appendChild(label);
+    });
+
+    var pickerBoxes = pickerGrid.querySelectorAll("input[type='checkbox']");
+
+    function syncPicker() {
+      var chosen = [];
+      pickerBoxes.forEach(function (cb) { if (cb.checked) chosen.push(cb.value); });
+      pickerInput.value = chosen.join(", ");
+      if (chosen.length) {
+        pickerSummary.textContent =
+          chosen.length + (chosen.length === 1 ? " dish — " : " dishes — ") + chosen.join(", ");
+        pickerOpenBtn.classList.add("has-selection");
+      } else {
+        pickerSummary.textContent = PLACEHOLDER;
+        pickerOpenBtn.classList.remove("has-selection");
+      }
+    }
+
+    function openPicker() {
+      pickerLastFocus = document.activeElement;
+      picker.classList.add("is-open");
+      picker.setAttribute("aria-hidden", "false");
+      pickerOpenBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+      if (pickerClose) pickerClose.focus();
+    }
+    function closePicker() {
+      picker.classList.remove("is-open");
+      picker.setAttribute("aria-hidden", "true");
+      pickerOpenBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      if (pickerLastFocus && pickerLastFocus.focus) pickerLastFocus.focus();
+    }
+
+    pickerOpenBtn.addEventListener("click", openPicker);
+    if (pickerClose) pickerClose.addEventListener("click", closePicker);
+    if (pickerDone) pickerDone.addEventListener("click", closePicker);
+    if (pickerClear) pickerClear.addEventListener("click", function () {
+      pickerBoxes.forEach(function (cb) { cb.checked = false; });
+      syncPicker();
+    });
+
+    // Click the backdrop (outside the panel) to close
+    picker.addEventListener("click", function (e) {
+      if (e.target === picker) closePicker();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && picker.classList.contains("is-open")) closePicker();
+    });
+  }
+
 })();

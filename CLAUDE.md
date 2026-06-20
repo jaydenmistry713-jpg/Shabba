@@ -26,7 +26,7 @@ robots.txt              Crawl rules + sitemap pointer
 sitemap.xml             Single-URL sitemap
 netlify.toml            /privacy → /privacy.html redirect, security headers, asset caching
 assets/css/styles.css   All styling (CSS custom properties at :root)
-assets/js/main.js        Nav scroll, mobile menu, scroll reveal + image unveil, photo parallax, reviews carousel, gallery lightbox, AJAX form submit, cookie notice
+assets/js/main.js        Nav scroll, mobile menu, scroll reveal + image unveil, photo parallax, reviews carousel, gallery lightbox, menu-picker modal, AJAX form submit
 assets/images/          Real brand photos (hero, about + about-detail accent, 2 food features, lifestyle band, menu, 6 gallery tiles + lightbox), the chef-medallion logo (logo.png), favicons, og-image
 site.webmanifest        PWA manifest (icon-192/512, theme colour)
 shabba_PRD.md           Full product spec
@@ -133,8 +133,8 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   the chef's face inside and **only his hat protruding from the top**; the rest of the
   silhouette is cut to the circle, never ragged into the jacket), eyebrow, an oversized
   centred `.hero__title` ("Cooking / with / Shabba"), a tagline flanked by two gold
-  `.rule`s, and the CTA; centred `.hero__scroll` cue at the bottom. The logo is
-  intentionally a different (illustrated) style from the photographic luxury theme —
+  `.rule`s, and the CTA. (No scroll cue — the old `.hero__scroll` was removed.) The logo
+  is intentionally a different (illustrated) style from the photographic luxury theme —
   keep it small. Regenerate it with `generate-logo.cjs` (see Local tooling).
 - **FAQ:** `.faq` section just before the footer, built from native
   `<details class="faq__item">`/`<summary class="faq__q">` (no JS — accessible by
@@ -159,8 +159,8 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=18`,
-`main.js?v=8`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
+safe). New filenames don't need it. Current versions: `styles.css?v=19`,
+`main.js?v=9`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)
 
@@ -194,6 +194,13 @@ in (the site itself still has **no build step**):
   `netlify-honeypot="bot-field"`, the hidden `form-name` input, and the honeypot field.
   Submission is AJAX (`fetch` POST to `/`) so the inline `#form-success` panel can
   replace the form without a page reload — keep both in sync if you change field names.
+  The **menu picker** adds a hidden `name="menu-selection"` input (must stay in the
+  static form so Netlify registers the field). Its value is set by the `#menu-picker`
+  modal — a dialog of tick-able dishes that `main.js` builds from the `.menu__name`
+  list (single source of truth) and writes back as a comma-joined string. The modal's
+  checkboxes are intentionally **name-less and live outside the `<form>`** so only the
+  one `menu-selection` field submits. Mirrors the lightbox a11y (focus restore, Esc,
+  backdrop-close, body-scroll lock).
 - Gallery `<img>` tags must keep `class="gallery-img"` so photos can be swapped by
   filename replacement.
 - All 14 menu items present; HelloFresh section keeps the `[DISCOUNT_CODE]` and

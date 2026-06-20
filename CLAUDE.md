@@ -98,13 +98,17 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
 - **Gallery + lightbox:** `.gallery__grid` is a curated **asymmetric mosaic** of 6
   `<button>` tiles (portraits interleaved with food; sizes via
   `--tall`/`--wide`), each with a `data-lightbox` index and a `.gallery__zoom` "+"
-  cue. Three extra food shots live in `#gallery-more` (`hidden`, lightbox-only).
-  `main.js` builds the lightbox list from grid imgs **then** `#gallery-more` imgs
-  (so tile indices line up) — 9 total; the `w=800`→`w=1600` upscale `.replace` is a
-  harmless no-op on the local files. `.gallery__view` ("View Full Gallery") opens
-  `#lightbox` at photo 1; tiles open at their own index. Lightbox supports prev/next,
-  dot-free counter, Esc/arrow keys, backdrop-click close, body-scroll lock, and focus
-  restore. Keep the "N Photos" count in the button in sync with the total image count.
+  cue. The three **portrait** tiles (`data-lightbox` 0/2/5) carry a CSS
+  `object-position: center N%` so `cover` focuses on Shabba's **face** rather than
+  centre-cropping to his torso. Six extra shots live in `#gallery-more` (`hidden`,
+  lightbox-only): the three food dishes plus three further portrait/brand shots
+  (`gallery-7/8/9.jpg`). `main.js` builds the lightbox list from grid imgs **then**
+  `#gallery-more` imgs (so tile indices line up) — **12 total**; the `w=800`→`w=1600`
+  upscale `.replace` is a harmless no-op on the local files. `.gallery__view`
+  ("View Full Gallery") opens `#lightbox` at photo 1; tiles open at their own index.
+  Lightbox supports prev/next, dot-free counter, Esc/arrow keys, backdrop-click close,
+  body-scroll lock, and focus restore. Keep the "N Photos" count in the button in sync
+  with the total image count.
 - **CSS** is plain (no preprocessor). Use the existing custom properties and the
   `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
 - **Scroll animations:** text/elements get `.reveal` (fade-up); image wrappers get
@@ -155,7 +159,7 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=17`,
+safe). New filenames don't need it. Current versions: `styles.css?v=18`,
 `main.js?v=8`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)

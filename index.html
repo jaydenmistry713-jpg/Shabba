@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=16" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=17" />
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -162,25 +162,35 @@
       </blockquote>
     </section>
 
-    <!-- ============ IMAGE BAND — full-bleed, woven between sections ============ -->
-    <section class="band" aria-label="Caribbean dining">
-      <img class="gallery-img band__img" src="assets/images/band-1.jpg" alt="Cooking with Shabba — glazed BBQ wings and fried chicken" loading="lazy" data-parallax="24" />
-      <div class="band__scrim"></div>
-      <p class="band__line reveal"><span class="rule"></span>Plated with intention, served with soul</p>
+    <!-- ============ FEATURE — contained dish image + caption (image right) ============ -->
+    <section class="feature" aria-label="Caribbean dining">
+      <div class="feature__grid">
+        <div class="feature__body">
+          <p class="section-kicker reveal">At the Table</p>
+          <p class="feature__line reveal"><span class="rule"></span>Plated with intention, served with soul.</p>
+          <p class="feature__sub reveal">Sticky, sesame-glazed and finished by hand — the kind of plate that sets the tone for the evening.</p>
+        </div>
+        <figure class="feature__media reveal-img">
+          <img class="gallery-img" src="assets/images/band-1.jpg" alt="Cooking with Shabba — glazed BBQ wings and fried chicken" loading="lazy" />
+        </figure>
+      </div>
     </section>
 
     <!-- ============ MENU ============ -->
     <section class="menu" id="menu" aria-label="The menu">
-      <header class="menu__head">
-        <p class="section-kicker reveal">A Taste of the Table</p>
-        <h2 class="menu__heading reveal">The Menu</h2>
-      </header>
-
-      <div class="menu__layout">
+      <!-- Signature dish photo paired with the menu intro (image left, bleeds + dissolves) -->
+      <div class="menu__intro">
         <figure class="menu__media reveal-img">
           <img class="gallery-img" src="assets/images/menu.jpg" alt="Cooking with Shabba — Caribbean rice and peas" loading="lazy" />
         </figure>
+        <header class="menu__head">
+          <p class="section-kicker reveal">A Taste of the Table</p>
+          <h2 class="menu__heading reveal">The Menu</h2>
+          <p class="menu__intro-line reveal">Fourteen signatures — from rice &amp; peas to honey-glazed lamb — comfort classics and refined centrepieces, every plate made to order.</p>
+        </header>
+      </div>
 
+      <div class="menu__inner">
       <div class="menu__cols">
         <ol class="menu__list reveal" start="1">
           <li class="menu__item"><span class="menu__no">01</span><span class="menu__name">Rice &amp; Peas</span></li>
@@ -202,16 +212,23 @@
           <li class="menu__item"><span class="menu__no">14</span><span class="menu__name">Cheesecake Cups</span></li>
         </ol>
       </div>
-      </div>
 
       <p class="menu__note reveal"><em>Menu items and flavours can vary. Get in touch to discuss your event requirements.</em></p>
+      </div>
     </section>
 
-    <!-- ============ IMAGE BAND — full-bleed, woven between sections ============ -->
-    <section class="band band--tall" aria-label="In the moment">
-      <img class="gallery-img band__img" src="assets/images/band-2.jpg" alt="Cooking with Shabba — a stacked beef burger slider" loading="lazy" data-parallax="24" />
-      <div class="band__scrim"></div>
-      <p class="band__line band__line--right reveal">Caribbean culture, in every detail<span class="rule"></span></p>
+    <!-- ============ FEATURE — contained dish image + caption (image right) ============ -->
+    <section class="feature feature--alt" aria-label="In the moment">
+      <div class="feature__grid">
+        <div class="feature__body">
+          <p class="section-kicker reveal">In the Detail</p>
+          <p class="feature__line reveal"><span class="rule"></span>Caribbean culture, in every detail.</p>
+          <p class="feature__sub reveal">Brioche, beef and slow-built flavour — small plates composed with the same care as the centrepieces.</p>
+        </div>
+        <figure class="feature__media reveal-img">
+          <img class="gallery-img" src="assets/images/band-2.jpg" alt="Cooking with Shabba — a stacked beef burger slider" loading="lazy" />
+        </figure>
+      </div>
     </section>
 
     <!-- ============ GALLERY ============ -->

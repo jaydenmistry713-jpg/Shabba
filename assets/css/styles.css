@@ -457,7 +457,10 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
-   IMAGE BANDS — full-bleed photos woven between sections
+   IMAGE BAND — the full-bleed lifestyle/brand strip. This is now the
+   only band; the food photos moved into contained .feature blocks and
+   the menu intro (a letterbox strip cropped those near-square shots
+   badly). This near-square at-home scene still works full-bleed.
    ============================================================ */
 .band {
   position: relative;
@@ -465,11 +468,6 @@ a { color: inherit; text-decoration: none; }
   height: clamp(280px, 46vh, 460px);
   --edge-top: var(--bg);      /* fades to match the section above … */
   --edge-bot: var(--bg-alt);  /* … and the section below */
-}
-.band--tall {
-  height: clamp(340px, 62vh, 620px);
-  --edge-top: var(--bg-alt);
-  --edge-bot: var(--bg);
 }
 /* Lifestyle/brand band — sits between the gallery (--bg) and reviews (--bg-alt).
    Taller so the near-square scene (chef up top, the food + branded laptop down on
@@ -481,11 +479,6 @@ a { color: inherit; text-decoration: none; }
 }
 /* keep the man + newspaper in frame up top and the table/laptop scene below */
 .band--lifestyle .band__img { object-position: center 47%; }
-/* Band 1 (BBQ wings) — drop the crop onto the glistening glazed sesame
-   drumstick rather than the soft out-of-focus food behind it. */
-.band:not(.band--tall):not(.band--lifestyle) .band__img { object-position: center 72%; }
-/* Band 2 (slider) — pull up so the whole burger reads (bun + patty), not just bun. */
-.band--tall .band__img { object-position: center 44%; }
 .band__img {
   position: absolute;
   inset: 0;
@@ -535,94 +528,149 @@ a { color: inherit; text-decoration: none; }
   width: 52px; height: 1px;
   background: var(--gold);
 }
-.band__line--right {
-  left: auto;
-  right: var(--gut);
-  text-align: right;
-  justify-content: flex-end;
+
+/* ============================================================
+   FEATURE — contained, art-directed dish photo + caption.
+   Replaces the old full-bleed food bands: the near-square food shots
+   were squeezed into letterbox strips. Here each photo sits in a tall
+   panel (à la the about portrait) that bleeds to the RIGHT page edge
+   and dissolves into the section on its inner edge, with an editorial
+   caption in the negative space on the left. A tall frame on a
+   landscape dish shows the whole stack (full height), trimming only
+   the sides — the subject always reads.
+   ============================================================ */
+.feature {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4.5rem, 11vh, 8rem) 0;   /* no side padding so the image bleeds */
+  background: var(--bg-alt);
+}
+.feature--alt { background: var(--bg-alt); }   /* both food features sit on --bg-alt */
+.feature__grid {
+  display: grid;
+  grid-template-columns: 1fr clamp(260px, 42vw, 560px);  /* caption | image */
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+.feature__media {
+  position: relative;
+  align-self: stretch;
+  min-height: clamp(360px, 54vh, 540px);
+}
+.feature__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.05) brightness(0.98) saturate(1.04);
+}
+/* dissolve the inner (left) edge + soft top/bottom into the section */
+.feature__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--bg-alt) 1%, transparent 44%),
+    linear-gradient(0deg, rgba(14,12,10,0.4) 0%, transparent 24%),
+    linear-gradient(180deg, var(--bg-alt) 0%, transparent 14%);
+}
+.feature__body {
+  padding-left: var(--gut);
+  max-width: 34ch;
+}
+.feature__line {
+  display: flex;
+  align-items: baseline;
+  gap: 1.1rem;
+  margin-top: 1.3rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.14;
+  color: var(--text);
+}
+.feature__line .rule {
+  flex: 0 0 auto;
+  width: 48px; height: 1px;
+  background: var(--gold);
+  transform: translateY(-0.4em);
+}
+.feature__sub {
+  margin-top: 1.5rem;
+  color: var(--text-mute);
+  max-width: 40ch;
 }
 
 /* ============================================================
    MENU
    ============================================================ */
 .menu {
-  background: var(--bg-alt);
-  padding: clamp(5rem, 12vh, 9rem) var(--gut);
-}
-.menu__head {
-  max-width: var(--maxw);
-  margin: 0 auto 3.5rem;
-  text-align: center;
-}
-.menu__heading {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(2.6rem, 6vw, 4.4rem);
-}
-.menu__layout {
-  max-width: var(--maxw);
-  margin: 0 auto;
-}
-/* Full-bleed dish photo — spans the display width; height follows the image's
-   natural aspect ratio (no crop). Breaks out of the section's padding. */
-.menu__media {
-  position: relative;
-  width: 100vw;
-  margin-inline: calc(50% - 50vw);
-  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
-}
-.menu__media img {
-  display: block;
-  width: 100%;
-  height: auto;
-  filter: contrast(1.03) brightness(0.93);
-}
-/* top & bottom dissolve into the menu panel, keeping the woven feel */
-.menu__media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, var(--bg-alt) 0%, transparent 14%),
-    linear-gradient(0deg, var(--bg-alt) 0%, transparent 14%);
-}
-.menu__cols {
-  display: grid;
-  grid-template-columns: clamp(220px, 32%, 360px) 1fr;
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: stretch;
-}
-.menu__media {
-  position: relative;
+  background: var(--bg);
+  padding: clamp(5rem, 12vh, 9rem) 0;   /* no side padding so the intro photo bleeds left */
   overflow: hidden;
-  min-height: clamp(340px, 34vw, 460px);
 }
-/* show a touch more of the bowl rather than a tight central rice strip */
-.menu__media img { object-position: center 42%; }
+/* Signature dish photo paired with the menu heading. The photo sits in a tall
+   panel that bleeds to the LEFT page edge and dissolves into the section on its
+   inner edge (mirrors the about block); the heading + intro sit to the right.
+   A tall frame on the landscape bowl shows it whole, trimming only the sides. */
+.menu__intro {
+  display: grid;
+  grid-template-columns: clamp(260px, 40vw, 540px) 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  margin-bottom: clamp(3.5rem, 8vh, 6rem);
+}
+.menu__media {
+  position: relative;
+  align-self: stretch;
+  min-height: clamp(360px, 52vh, 540px);
+}
 .menu__media img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: contrast(1.03) brightness(0.93);
+  object-position: center 48%;
+  filter: contrast(1.04) brightness(0.96) saturate(1.04);
 }
-/* top & bottom melt into the menu background so the banner feels embedded,
-   never a hard horizontal edge */
 .menu__media::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, var(--bg-alt) 0%, transparent 22%, transparent 78%, var(--bg-alt) 100%);
+  background:
+    linear-gradient(270deg, var(--bg) 1%, transparent 44%),
+    linear-gradient(0deg, rgba(14,12,10,0.4) 0%, transparent 24%),
+    linear-gradient(180deg, var(--bg) 0%, transparent 14%);
+}
+.menu__head {
+  padding-right: var(--gut);
+  max-width: 48ch;
+}
+.menu__heading {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+}
+.menu__intro-line {
+  margin-top: 1.5rem;
+  color: var(--text-mute);
+  max-width: 42ch;
+}
+/* list + note are constrained and padded (the section has no side padding) */
+.menu__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gut);
 }
 .menu__cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0 clamp(2rem, 5vw, 4rem);
-  max-width: var(--maxw);
-  margin: 0 auto;
 }
 .menu__list { list-style: none; }
 .menu__item {
@@ -1423,11 +1471,10 @@ a { color: inherit; text-decoration: none; }
   .nav__links { display: none; }
   .nav__burger { display: flex; }
 
-  /* Bands go landscape on narrow screens — a tall vh band would squeeze the
-     wide photos into an awkward vertical slice (cropping out the subject). A
-     width-based height keeps roughly the photo's own aspect, so the whole
-     scene reads. */
-  .band, .band--tall, .band--lifestyle { height: clamp(260px, 68vw, 440px); }
+  /* The lifestyle band goes landscape on narrow screens — a tall vh band would
+     squeeze the wide photo into an awkward vertical slice (cropping the subject).
+     A width-based height keeps roughly the photo's own aspect, so it reads. */
+  .band--lifestyle { height: clamp(260px, 68vw, 440px); }
 
   .about__grid { grid-template-columns: 1fr; gap: 0; }
   .about__media { min-height: clamp(300px, 52vh, 440px); }
@@ -1441,6 +1488,28 @@ a { color: inherit; text-decoration: none; }
   .about__body { padding: 2.5rem var(--gut) 0; max-width: none; }
   .about__quote { text-align: left; margin: clamp(3rem, 8vh, 5rem) var(--gut) 0 0; max-width: 100%; }
   .about__accent { display: none; } /* overlap only reads on the two-column layout */
+
+  /* Feature + menu intro: stack to a photo-led banner that fades into the copy
+     below, the same way the about block stacks. */
+  .feature__grid, .menu__intro { grid-template-columns: 1fr; gap: 0; }
+  .feature__media, .menu__media {
+    order: -1;                 /* photo leads on mobile */
+    min-height: clamp(280px, 56vw, 420px);
+  }
+  .feature__body { padding: 2.4rem var(--gut) 0; max-width: none; }
+  .feature__media::after {
+    background:
+      linear-gradient(0deg, var(--bg-alt) 1%, transparent 30%),
+      linear-gradient(0deg, rgba(14,12,10,0.5) 0%, transparent 26%),
+      linear-gradient(180deg, var(--bg-alt) 0%, transparent 14%);
+  }
+  .menu__head { padding: 2.4rem var(--gut) 0; max-width: none; }
+  .menu__media::after {
+    background:
+      linear-gradient(0deg, var(--bg) 1%, transparent 30%),
+      linear-gradient(0deg, rgba(14,12,10,0.5) 0%, transparent 26%),
+      linear-gradient(180deg, var(--bg) 0%, transparent 14%);
+  }
 
   .trust__band { flex-direction: column; gap: 2.5rem; }
   .trust__sep { width: 60%; height: 1px; margin: 0 auto;

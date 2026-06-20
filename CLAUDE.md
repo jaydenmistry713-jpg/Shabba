@@ -27,7 +27,7 @@ sitemap.xml             Single-URL sitemap
 netlify.toml            /privacy → /privacy.html redirect, security headers, asset caching
 assets/css/styles.css   All styling (CSS custom properties at :root)
 assets/js/main.js        Nav scroll, mobile menu, scroll reveal + image unveil, photo parallax, reviews carousel, gallery lightbox, AJAX form submit, cookie notice
-assets/images/          Real brand photos (hero, about + about-detail accent, 2 food bands, lifestyle band, menu, 6 gallery tiles + lightbox), the transparent chef logo (logo.png), favicons, og-image
+assets/images/          Real brand photos (hero, about + about-detail accent, 2 food features, lifestyle band, menu, 6 gallery tiles + lightbox), the chef-medallion logo (logo.png), favicons, og-image
 site.webmanifest        PWA manifest (icon-192/512, theme colour)
 shabba_PRD.md           Full product spec
 prompt.txt              Original build brief
@@ -67,18 +67,34 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   `mix-blend-mode: overlay`) gives every section a hand-finished feel. Disabled
   under `prefers-reduced-motion`.
 - **Woven imagery:** every photo is placed with intent and distributed through the
-  page, never pooled — full-bleed `.band` strips between sections (edges fade into
-  the adjacent section colour via `--edge-top`/`--edge-bot`), including a
-  `.band--lifestyle` brand/at-home strip between the gallery and reviews; a full-bleed
-  `.menu__media` banner (`width: 100vw` via `margin-inline: calc(50% - 50vw)`;
-  top/bottom fade into `--bg-alt`) above the `.menu__cols` list — a two-up grid of
-  two `.menu__list` columns (items 1–7 / 8–14) that **stays two columns on mobile too**
-  (the `≤600px` rule keeps `1fr 1fr` and just shrinks `.menu__name`/gaps so the longer
-  dishes fit); a left-bleed
-  `.about__media` portrait that dissolves into the page, with a small overlapping
-  colour food detail (`.about__accent`, hidden when the layout stacks) for an
-  art-directed layered feel; and a curated gallery. All swappable photos keep
-  `class="gallery-img"`.
+  page, never pooled. The near-square food shots are **not** full-bleed letterbox
+  bands (that crop badly on desktop) — instead each sits in a contained, art-directed
+  block modelled on the about portrait:
+  - **`.feature`** — a two-column block (caption left / image right) that replaces the
+    old food bands. The photo fills a tall `.feature__media` panel that bleeds to the
+    **right** page edge and dissolves into the section on its inner (left) edge; an
+    editorial `.feature__line` (big serif) + `.feature__sub` sit in the negative space.
+    A tall frame on a landscape dish shows the whole stack (full height), trimming only
+    the sides. Two instances: BBQ wings (after about) and the slider (`.feature--alt`,
+    after the menu). Both sit on `--bg-alt`, alternating tones with about/menu/gallery
+    (all `--bg`).
+  - **Menu intro** — the signature rice photo is folded **into** the menu: `.menu__intro`
+    pairs a left-bleed/dissolving `.menu__media` panel with the `.menu__head`
+    (kicker + "The Menu" + `.menu__intro-line`). Below, `.menu__inner` (max-width +
+    side padding, since `.menu` itself has none) holds the `.menu__cols` two-up grid of
+    two `.menu__list` columns (items 1–7 / 8–14) that **stays two columns on mobile**
+    (the `≤600px` rule keeps `1fr 1fr` and shrinks `.menu__name`/gaps so longer dishes fit).
+  - **`.about__media`** — the left-bleed portrait that dissolves into the page, with a
+    small overlapping colour food detail (`.about__accent`, hidden when stacked).
+  - **`.band--lifestyle`** — the **only** remaining full-bleed `.band` (the man + branded
+    newspaper at-home strip between gallery and reviews; near-square so it survives
+    full-bleed). Band edges fade into the adjacent section colour via
+    `--edge-top`/`--edge-bot`. `.feature`/`.menu__intro` stack to a photo-led banner at
+    `≤860px` (same as about).
+
+  All swappable photos keep `class="gallery-img"`. The food photos
+  (`band-1.jpg`/`band-2.jpg`/`menu.jpg`) keep their filenames — still used here and in
+  the `#gallery-more` lightbox set.
 - **Gallery + lightbox:** `.gallery__grid` is a curated **asymmetric mosaic** of 6
   `<button>` tiles (portraits interleaved with food; sizes via
   `--tall`/`--wide`), each with a `data-lightbox` index and a `.gallery__zoom` "+"
@@ -139,7 +155,7 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=16`,
+safe). New filenames don't need it. Current versions: `styles.css?v=17`,
 `main.js?v=8`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)
@@ -186,7 +202,8 @@ in (the site itself still has **no build step**):
 - `[DISCOUNT_CODE]` and `[HELLOFRESH_LINK]` in the HelloFresh section
 
 Done: real shoot photos (all natural colour) woven through the page with intent —
-food in hero/bands/menu, a portrait + overlapping food accent in about, and a curated
-gallery mosaic, plus a lifestyle/brand band between gallery and reviews; image
-scroll-reveals (`.reveal-img`) and parallax drift; favicons + touch icons; the OG image
+food in the hero, two contained `.feature` blocks + the menu intro, a portrait +
+overlapping food accent in about, and a curated gallery mosaic, plus the lifestyle/brand
+band between gallery and reviews; image scroll-reveals (`.reveal-img`) and parallax
+drift; favicons + touch icons; the OG image
 (`/assets/og-image.jpg`, also used by the JSON-LD `image`); and the reviews carousel.

@@ -153,9 +153,12 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   `.rule`s, and the CTA. (No scroll cue — the old `.hero__scroll` was removed.) The logo
   is intentionally a different (illustrated) style from the photographic luxury theme —
   keep it small. Regenerate it with `generate-logo.cjs` (see Local tooling).
-- **FAQ:** `.faq` section just before the footer, built from native
-  `<details class="faq__item">`/`<summary class="faq__q">` (no JS — accessible by
-  default). The `+`/`−` toggle is the `.faq__icon` pseudo-elements.
+- **FAQ:** `.faq` section sits right **after the enquiry form** (handle last
+  objections, then the ask), built from native `<details class="faq__item">`/
+  `<summary class="faq__q">` (no JS — accessible by default). The `+`/`−` toggle is the
+  `.faq__icon` pseudo-elements. Order near the end: …reviews → trust → **form → FAQ →
+  HelloFresh → footer** (HelloFresh is a low-priority "P.S." with an external CTA, kept
+  after the form so it never pulls visitors off-site before they enquire).
 - **JS** is a single IIFE in `main.js`, ES5-safe, no dependencies.
 
 ## Deployment (cache-busting)

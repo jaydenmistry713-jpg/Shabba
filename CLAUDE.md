@@ -172,8 +172,8 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=25`,
-`main.js?v=9`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
+safe). New filenames don't need it. Current versions: `styles.css?v=26`,
+`main.js?v=10`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)
 
@@ -214,7 +214,9 @@ in (the site itself still has **no build step**):
   checkboxes are intentionally **name-less and live outside the `<form>`** so only the
   one `menu-selection` field submits. Mirrors the lightbox a11y (focus restore, Esc,
   backdrop-close, body-scroll lock). The **Number of Guests** field is capped at
-  `max="30"`. The **Message / Additional Details** textarea is the one field that does
+  `max="30"` (`min="1"`) and **live-validated** in `main.js`: an `input`/`blur`
+  handler shows an inline `#guests-error` message (`.field__error`) as the visitor
+  types and calls `setCustomValidity()` so an out-of-range count also blocks submit. The **Message / Additional Details** textarea is the one field that does
   *not* use the empty `placeholder=" "` floating-label trick: it carries a real
   placeholder hint ("Dry ice, dietary requirements, special requests…") with its
   label pinned up via `class="field__label--always"` so the hint shows in the box.

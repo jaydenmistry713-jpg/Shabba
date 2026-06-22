@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css?v=25" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=26" />
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -382,8 +382,9 @@
             <label for="event-date" class="field__label--always">Event Date</label>
           </div>
           <div class="field">
-            <input type="number" id="guests" name="guests" min="1" max="30" placeholder=" " />
+            <input type="number" id="guests" name="guests" min="1" max="30" step="1" placeholder=" " aria-describedby="guests-error" />
             <label for="guests">Number of Guests</label>
+            <span class="field__error" id="guests-error" role="alert" aria-live="polite"></span>
           </div>
         </div>
 
@@ -535,6 +536,6 @@
     </div>
   </div>
 
-  <script src="assets/js/main.js?v=9" defer></script>
+  <script src="assets/js/main.js?v=10" defer></script>
 </body>
 </html>

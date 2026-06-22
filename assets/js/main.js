@@ -102,6 +102,35 @@
   var form = document.querySelector("form[name='enquiry']");
   var success = document.getElementById("form-success");
 
+  /* Live validation for the guest count — surface the 1–30 limit as the
+     visitor types (and on blur), not only on submit. setCustomValidity also
+     blocks the AJAX submit below until it's fixed. */
+  var guests = document.getElementById("guests");
+  var guestsErr = document.getElementById("guests-error");
+  if (guests && guestsErr) {
+    var validateGuests = function () {
+      var msg = "";
+      if (guests.value !== "") {
+        if (guests.validity.badInput) {
+          msg = "Please enter a number.";
+        } else {
+          var n = parseInt(guests.value, 10);
+          if (n > 30) {
+            msg = "We cater for up to 30 guests — contact us for larger events.";
+          } else if (n < 1) {
+            msg = "Please enter at least 1 guest.";
+          }
+        }
+      }
+      guests.setCustomValidity(msg);
+      guestsErr.textContent = msg;
+      if (msg) { guests.setAttribute("aria-invalid", "true"); }
+      else { guests.removeAttribute("aria-invalid"); }
+    };
+    guests.addEventListener("input", validateGuests);
+    guests.addEventListener("blur", validateGuests);
+  }
+
   if (form && success) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();

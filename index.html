@@ -108,7 +108,7 @@
 
       <div class="hero__content">
         <img class="hero__logo reveal" src="assets/images/logo.png?v=2" alt="Cooking with Shabba — chef logo" width="680" height="909" />
-        <p class="hero__eyebrow reveal">Private Dining · Caribbean Cuisine</p>
+        <p class="hero__eyebrow reveal">Luxury Private Dining · Caribbean Cuisine</p>
         <h1 class="hero__title reveal">
           <span>Cooking</span>
           <span class="hero__title-with">with</span>
@@ -382,7 +382,7 @@
             <label for="event-date" class="field__label--always">Event Date</label>
           </div>
           <div class="field">
-            <input type="number" id="guests" name="guests" min="1" placeholder=" " />
+            <input type="number" id="guests" name="guests" min="1" max="30" placeholder=" " />
             <label for="guests">Number of Guests</label>
           </div>
         </div>
@@ -398,8 +398,8 @@
         </div>
 
         <div class="field">
-          <textarea id="message" name="message" rows="3" placeholder=" "></textarea>
-          <label for="message">Message / Additional Details</label>
+          <textarea id="message" name="message" rows="3" placeholder="Dry ice, dietary requirements, special requests…"></textarea>
+          <label for="message" class="field__label--always">Message / Additional Details</label>
         </div>
 
         <button type="submit" class="form__submit">Send Enquiry</button>

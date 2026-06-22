@@ -140,7 +140,8 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
 - **Hero:** centred stack — the chef logo emblem (`.hero__logo`, `assets/images/logo.png`,
   the illustrated chef badge as a clean grey **medallion** — a transparent circle with
   the chef's face inside and **only his hat protruding from the top**; the rest of the
-  silhouette is cut to the circle, never ragged into the jacket), eyebrow, an oversized
+  silhouette is cut to the circle, never ragged into the jacket), eyebrow
+  ("Luxury Private Dining · Caribbean Cuisine"), an oversized
   centred `.hero__title` ("Cooking / with / Shabba"), a tagline flanked by two gold
   `.rule`s, and the CTA. (No scroll cue — the old `.hero__scroll` was removed.) The logo
   is intentionally a different (illustrated) style from the photographic luxury theme —
@@ -212,7 +213,11 @@ in (the site itself still has **no build step**):
   list (single source of truth) and writes back as a comma-joined string. The modal's
   checkboxes are intentionally **name-less and live outside the `<form>`** so only the
   one `menu-selection` field submits. Mirrors the lightbox a11y (focus restore, Esc,
-  backdrop-close, body-scroll lock).
+  backdrop-close, body-scroll lock). The **Number of Guests** field is capped at
+  `max="30"`. The **Message / Additional Details** textarea is the one field that does
+  *not* use the empty `placeholder=" "` floating-label trick: it carries a real
+  placeholder hint ("Dry ice, dietary requirements, special requests…") with its
+  label pinned up via `class="field__label--always"` so the hint shows in the box.
 - Gallery `<img>` tags must keep `class="gallery-img"` so photos can be swapped by
   filename replacement.
 - All 14 menu items present; the HelloFresh section is now fully live (real

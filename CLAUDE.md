@@ -29,16 +29,18 @@ assets/css/styles.css   All styling (CSS custom properties at :root)
 assets/css/styles.warm.css  Backup of the previous WARM "stone"/espresso palette — copy
                         it over styles.css (and bump ?v=) to revert the colour scheme
 assets/js/main.js        Nav scroll, mobile menu, scroll reveal + image unveil, photo parallax, reviews carousel, gallery lightbox, menu-picker modal, AJAX form submit
-assets/images/          Real brand photos (hero, about portrait, 2 food features, lifestyle band, menu, 6 gallery tiles + 3 lightbox extras), the chef-medallion logo (logo.png), favicons, og-image (about-detail.jpg now unused)
+assets/images/          Real brand photos from two shoots — hero (luxury buffet), about portrait, menu (rice & peas chafing dish), lifestyle band, the gallery mosaic (portraits + food: sliders/fried-chicken/lamb-chops/dessert-cups) and 14 lightbox-only extras — the chef-medallion logo (logo.png), favicons, og-image (about-detail.jpg now unused)
 site.webmanifest        PWA manifest (icon-192/512, theme colour)
 shabba_PRD.md           Full product spec
 prompt.txt              Original build brief
 ```
 
 Real shoot photos live in `assets/images/` (optimised JPGs), processed from the
-originals in `shabbaimages/` (untracked) by `process-images.cjs` (gitignored;
-re-run with `node process-images.cjs` — it borrows `sharp` from the global
-netlify-cli). **All photos are kept in their natural colour** (the `colour()` job:
+originals in `shabbaimages/` (untracked — **all** shoot originals from both batches
+now live here) by `process-images.cjs` (first batch) and `_process-new.cjs` (the
+second batch, EXIF-rotation-aware), both gitignored. Re-run with `node <script>` —
+they borrow `sharp` from the global netlify-cli (note the install path is under
+`C:/Users/jayde/…`, lowercase user). **All photos are kept in their natural colour** (the `colour()` job:
 mild saturation/brightness + a soft vignette, baked in). The white-studio portrait/
 lifestyle shots therefore read brighter than the dark sections — the vignette plus
 the CSS edge-fades (about bleed, band/menu fades) and a light CSS `brightness()`/
@@ -75,7 +77,7 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   page, never pooled. (There used to be standalone `.feature` blocks for the food shots
   — both were removed and their photos moved into the gallery; **no `.feature` markup or
   CSS remains**.) The contained, art-directed image moments now are:
-  - **Menu intro** — the signature rice photo is folded **into** the menu: `.menu__intro`
+  - **Menu intro** — the signature rice & peas chafing-dish photo (`menu.jpg`) is folded **into** the menu: `.menu__intro`
     pairs a left-bleed/dissolving `.menu__media` panel (top edge meets the section top —
     `.menu` has no top padding — bottom-padding kept for the list) with the `.menu__head`
     (kicker + "The Menu" + `.menu__intro-line`). Below, `.menu__inner` (max-width +
@@ -95,20 +97,20 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
 
   Section tones alternate **about(`--bg`) → menu(`--bg-alt`) → gallery(`--bg`)**, each
   boundary also carrying a gold hairline. All swappable photos keep `class="gallery-img"`.
-  The food photos (`band-1.jpg`/`band-2.jpg`/`menu.jpg`) keep their filenames — `band-1`
-  and `band-2` are now visible gallery tiles; `menu.jpg` is the menu intro + a lightbox extra.
 - **Gallery + lightbox:** the gallery sits on `--bg` with a gold hairline `border-top` so
   its start still reads. `.gallery__grid` is a curated **asymmetric mosaic** of **8**
-  `<button>` tiles (portraits interleaved with food; sizes via `--tall`/`--wide`; the two
-  food shots that came out of the old features — `band-2.jpg` slider + `band-1.jpg` wings —
-  are the closing 2-up row, `data-lightbox` 6/7), each with a `data-lightbox` index and a
-  `.gallery__zoom` "+" cue. The three **portrait** tiles (`data-lightbox` 0/2/5) carry a CSS
-  `object-position: center N%` so `cover` focuses on Shabba's **face** rather than
-  centre-cropping to his torso. Four extra shots live in `#gallery-more` (`hidden`,
-  lightbox-only): `menu.jpg` + the three
-  portrait/brand shots (`gallery-7/8/9.jpg`). `main.js` builds the lightbox list from grid
-  imgs **then** `#gallery-more` imgs (so tile indices line up) — **12 total**; the
-  `w=800`→`w=1600`
+  `<button>` tiles (portraits interleaved with food; sizes via `--tall`/`--wide`). The
+  food tiles are the second-shoot luxury shots — `sliders.jpg` (1), `fried-chicken.jpg`
+  (4), `lamb-chops.jpg` (6), `dessert-cups.jpg` (7) — plus the wide `gallery-4.jpg`
+  lifestyle tile (3); the three **portrait** tiles (`data-lightbox` 0/2/5 = `gallery-1/3/6`)
+  carry a CSS `object-position: center N%` so `cover` focuses on Shabba's **face** rather
+  than centre-cropping to his torso. The displaced first-shoot food (`gallery-2/5`,
+  `band-1/2`) was **not deleted — it moved into the lightbox-only extras**. `#gallery-more`
+  (`hidden`, lightbox-only) now holds **14** shots: the new `chef-standing`,
+  `buffet-bright`, `spring-rolls`, `mac-cheese`, `plantain`, `salad-spread`, then
+  `menu.jpg` + `gallery-7/8/9` + the displaced `gallery-2`, `gallery-5`, `band-2`,
+  `band-1`. `main.js` builds the lightbox list from grid imgs **then** `#gallery-more`
+  imgs (so tile indices line up) — **22 total**; the `w=800`→`w=1600`
   upscale `.replace` is a harmless no-op on the local files. `.gallery__view`
   ("View Full Gallery") opens `#lightbox` at photo 1; tiles open at their own index.
   Lightbox supports prev/next, dot-free counter, Esc/arrow keys, backdrop-click close,
@@ -172,8 +174,9 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=26`,
-`main.js?v=10`, and `band-lifestyle.jpg?v=2` / `gallery-4.jpg?v=2` / `logo.png?v=2`.
+safe). New filenames don't need it. Current versions: `styles.css?v=27`,
+`main.js?v=10`, and `hero.jpg?v=2` (referenced in `styles.css`) / `menu.jpg?v=2` /
+`band-lifestyle.jpg?v=4` / `gallery-4.jpg?v=3` / `logo.png?v=2`.
 
 ## Local tooling (not shipped — all gitignored)
 
@@ -186,6 +189,14 @@ in (the site itself still has **no build step**):
   is deterministic, so unchanged jobs produce byte-identical output (only genuinely
   retuned images show as modified in `git status` — handy for knowing which need a
   `?v` bump).
+- `_process-new.cjs` — same treatment for the **second shoot batch** (the photos that
+  arrived in a `new/` folder, since merged into `shabbaimages/`). Adds `.rotate()` so
+  EXIF-oriented phone shots land upright, and uses a neutral `rgba(8,8,8,…)` vignette to
+  match the current palette. It generated `hero.jpg`/`menu.jpg` (overwrites — bump `?v`)
+  plus the new gallery/lightbox shots (`sliders`, `fried-chicken`, `lamb-chops`,
+  `dessert-cups`, `chef-standing`, `buffet-bright`, `spring-rolls`, `mac-cheese`,
+  `plantain`, `salad-spread`). The retired first-shoot `hero.jpg`/`menu.jpg` (takeaway-
+  tray food) were dropped, not re-homed.
 - `generate-logo.cjs` — rebuilds the hero chef emblem (`assets/images/logo.png`) from
   the source illustration (`shabbaimages/28007cd5-…Shabaka Robinson.jpg`). Detects the
   grey medallion circle (centre/radius are baked into the script), keeps the disc as a

@@ -115,7 +115,9 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   ("View Full Gallery") opens `#lightbox` at photo 1; tiles open at their own index.
   Lightbox supports prev/next, dot-free counter, Esc/arrow keys, backdrop-click close,
   body-scroll lock, and focus restore. Keep the "N Photos" count in the button in sync
-  with the total image count.
+  with the total image count. **The nav buttons carry `z-index: 2`** — the prev button
+  sits *before* the `.lightbox__stage`/image in the DOM, so without it the image paints
+  on top and the left arrow disappears behind the photo (close button already had it).
 - **CSS** is plain (no preprocessor). Use the existing custom properties and the
   `--ease` cubic-bezier for transitions. BEM-ish class names (`block__element--modifier`).
 - **Scroll animations:** text/elements get `.reveal` (fade-up); image wrappers get
@@ -174,7 +176,7 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=27`,
+safe). New filenames don't need it. Current versions: `styles.css?v=28`,
 `main.js?v=10`, and `hero.jpg?v=2` (referenced in `styles.css`) / `menu.jpg?v=2` /
 `band-lifestyle.jpg?v=4` / `gallery-4.jpg?v=3` / `logo.png?v=2`.
 

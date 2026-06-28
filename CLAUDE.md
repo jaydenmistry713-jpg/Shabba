@@ -9,7 +9,7 @@ dining brand (Gloucester, UK; transitioning into high-end private dining). The s
 one job is to **convert visitors into enquiries**. Domain: cookingwithshabba.co.uk,
 hosted on **Netlify**.
 
-`shabba_PRD.md` is the complete specification (copy, all 14 menu items, palette,
+`shabba_PRD.md` is the complete specification (copy, all 16 menu items, palette,
 social URLs, acceptance criteria). Treat it as the source of truth — read it before
 making content or structural changes.
 
@@ -82,7 +82,7 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
     `.menu` has no top padding — bottom-padding kept for the list) with the `.menu__head`
     (kicker + "The Menu" + `.menu__intro-line`). Below, `.menu__inner` (max-width +
     side padding, since `.menu` itself has none) holds the `.menu__cols` two-up grid of
-    two `.menu__list` columns (items 1–7 / 8–14) that **stays two columns on mobile**
+    two `.menu__list` columns (items 1–8 / 9–16) that **stays two columns on mobile**
     (the `≤600px` rule keeps `1fr 1fr` and shrinks `.menu__name`/gaps so longer dishes fit).
     The menu sits on **`--bg-alt` with a gold hairline `border-top`** so its start reads on
     desktop now that the `--bg-alt` "At the Table" feature before it is gone (on mobile the
@@ -273,7 +273,7 @@ in (the site itself still has **no build step**):
   label pinned up via `class="field__label--always"` so the hint shows in the box.
 - Gallery `<img>` tags must keep `class="gallery-img"` so photos can be swapped by
   filename replacement.
-- All 14 menu items present; the HelloFresh section is now fully live (real
+- All 16 menu items present; the HelloFresh section is now fully live (real
   ambassador code `HFAMBCOOKINGWITHSHABBA` + real `Claim Discount` URL).
 - Keep SEO head intact (title, meta description, OG tags, canonical, `lang`, semantic
   landmarks, `aria-label`s, `loading="lazy"` on below-fold images).

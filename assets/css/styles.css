@@ -889,7 +889,11 @@ a { color: inherit; text-decoration: none; }
   transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
   pointer-events: none;
 }
+/* The active slide sits in normal flow so the track grows to its height
+   (the inactive slides stay absolutely overlaid for the cross-fade) — this
+   keeps a long review from overflowing onto the dots/progress bar below. */
 .review.is-active {
+  position: relative;
   opacity: 1;
   transform: none;
   pointer-events: auto;

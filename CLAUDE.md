@@ -179,7 +179,7 @@ version numbers moving forward as you edit each file.
 (e.g. re-toning `band-lifestyle.jpg`), its content changes under a URL the cache
 treats as immutable — returning visitors keep the stale photo. Append/bump a `?v=N`
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
-safe). New filenames don't need it. Current versions: `styles.css?v=28`,
+safe). New filenames don't need it. Current versions: `styles.css?v=29`,
 `main.js?v=10`, and `hero.jpg?v=2` (referenced in `styles.css`) / `menu.jpg?v=2` /
 `band-lifestyle.jpg?v=4` / `gallery-4.jpg?v=3` / `logo.png?v=2` /
 `og-image.jpg?v=2` (in the OG/Twitter/JSON-LD tags — bump if `_process-og.cjs` is re-run).

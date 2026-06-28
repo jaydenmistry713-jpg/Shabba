@@ -29,7 +29,7 @@ assets/css/styles.css   All styling (CSS custom properties at :root)
 assets/css/styles.warm.css  Backup of the previous WARM "stone"/espresso palette — copy
                         it over styles.css (and bump ?v=) to revert the colour scheme
 assets/js/main.js        Nav scroll, mobile menu, scroll reveal + image unveil, photo parallax, reviews carousel, gallery lightbox, menu-picker modal, AJAX form submit
-assets/images/          Real brand photos from two shoots — hero (luxury buffet), about portrait, menu (rice & peas chafing dish), lifestyle band, the gallery mosaic (portraits + food: sliders/fried-chicken/lamb-chops/dessert-cups) and 14 lightbox-only extras — the chef-medallion logo (logo.png), favicons, og-image (about-detail.jpg now unused)
+assets/images/          Real brand photos from two shoots — hero (luxury buffet), about portrait, menu (rice & peas chafing dish), lifestyle band, the gallery mosaic (portraits + food: sliders/fried-chicken/lamb-chops/dessert-cups) and 14 lightbox-only extras — the chef-medallion logo (logo.png), favicons, og-image.jpg (the social-share card: the logo medallion on the brand dark bg + gold frame, 1200×630, built by _process-og.cjs; about-detail.jpg now unused)
 site.webmanifest        PWA manifest (icon-192/512, theme colour)
 shabba_PRD.md           Full product spec
 prompt.txt              Original build brief
@@ -178,7 +178,33 @@ treats as immutable — returning visitors keep the stale photo. Append/bump a `
 on that specific `src` (the lightbox's `w=…` `.replace` ignores other params, so it's
 safe). New filenames don't need it. Current versions: `styles.css?v=28`,
 `main.js?v=10`, and `hero.jpg?v=2` (referenced in `styles.css`) / `menu.jpg?v=2` /
-`band-lifestyle.jpg?v=4` / `gallery-4.jpg?v=3` / `logo.png?v=2`.
+`band-lifestyle.jpg?v=4` / `gallery-4.jpg?v=3` / `logo.png?v=2` /
+`og-image.jpg?v=2` (in the OG/Twitter/JSON-LD tags — bump if `_process-og.cjs` is re-run).
+
+## SEO & social
+
+The canonical domain is **`https://cookingwithshabba.co.uk/`** (trailing slash) — every
+absolute URL in the head, `sitemap.xml`, `robots.txt` and JSON-LD must use it (no
+`netlify.app`, no `.com`, no `http://`). The site is verified in **Google Search Console**
+and **Bing Webmaster Tools**.
+
+- **`<head>` meta:** `title` + `description`, `canonical`, `robots`
+  (`index, follow, max-image-preview:large`), `author`, and local-SEO `geo.region`
+  (`GB-GLS`) / `geo.placename`. Open Graph (`og:type/site_name/locale/title/description/
+  image(+width/height/alt)/url`) and Twitter (`summary_large_image` + title/description/
+  image/alt). **`og:image`/`twitter:image` are the logo card** — absolute URL
+  `…/assets/images/og-image.jpg?v=N` (note: lives under `assets/images/`, **not**
+  `assets/` — an earlier `/assets/og-image.jpg` path 404'd). `theme-color` is `#0A0A0A`
+  (matches the palette; the `site.webmanifest` `theme_color`/`background_color` match).
+- **Structured data:** one JSON-LD `@graph` with a `FoodEstablishment`
+  (`#business` — name, description, url, image, `logo`, email, cuisine, priceRange,
+  address, `geo` Gloucester coords, areaServed UK, makesOffer, `sameAs` socials) and a
+  `WebSite` (`#website`) that `publisher`-references the business. **Keep it valid JSON**
+  (`node -e` parse-check) and keep `@id`s/URLs on the canonical domain.
+- **`sitemap.xml`** is a single-URL sitemap (the homepage) — bump `<lastmod>` when content
+  changes meaningfully. `robots.txt` allows all, disallows `/privacy.html`, points to the
+  sitemap. `privacy.html` is `noindex`; the `404.html` returns a 404 status so it stays out
+  of the index.
 
 ## Local tooling (not shipped — all gitignored)
 
@@ -199,6 +225,11 @@ in (the site itself still has **no build step**):
   `dessert-cups`, `chef-standing`, `buffet-bright`, `spring-rolls`, `mac-cheese`,
   `plantain`, `salad-spread`). The retired first-shoot `hero.jpg`/`menu.jpg` (takeaway-
   tray food) were dropped, not re-homed.
+- `_process-og.cjs` — builds the social-share card `assets/images/og-image.jpg`
+  (1200×630) by compositing the chef-medallion `logo.png` onto the brand near-black
+  background (`#0A0A0A`) with a gold hairline frame. Borrows `sharp` from the global
+  netlify-cli. `node _process-og.cjs`. Overwrites the file — bump `og-image.jpg?v=N`
+  in the OG/Twitter/JSON-LD tags afterwards.
 - `generate-logo.cjs` — rebuilds the hero chef emblem (`assets/images/logo.png`) from
   the source illustration (`shabbaimages/28007cd5-…Shabaka Robinson.jpg`). Detects the
   grey medallion circle (centre/radius are baked into the script), keeps the disc as a

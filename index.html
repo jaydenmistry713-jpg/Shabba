@@ -6,22 +6,39 @@
 
   <title>Cooking with Shabba | Luxury Private Dining | Caribbean Cuisine | UK</title>
   <meta name="description" content="Cooking with Shabba offers luxury private dining buffet experiences across the UK. Caribbean cuisine, premium presentation, and unforgettable events. Enquire now." />
-  <link rel="canonical" href="https://cookingwithshabba.co.uk" />
+  <link rel="canonical" href="https://cookingwithshabba.co.uk/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="Cooking with Shabba" />
+
+  <!-- Local SEO -->
+  <meta name="geo.region" content="GB-GLS" />
+  <meta name="geo.placename" content="Gloucester, England" />
 
   <!-- Favicons & touch icons -->
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  <meta name="theme-color" content="#14110E" />
+  <meta name="theme-color" content="#0A0A0A" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Cooking with Shabba" />
+  <meta property="og:locale" content="en_GB" />
   <meta property="og:title" content="Cooking with Shabba | Luxury Private Dining" />
   <meta property="og:description" content="Caribbean cuisine. Premium presentation. Unforgettable events." />
-  <meta property="og:image" content="/assets/og-image.jpg" />
-  <meta property="og:url" content="https://cookingwithshabba.co.uk" />
+  <meta property="og:image" content="https://cookingwithshabba.co.uk/assets/images/og-image.jpg?v=2" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Cooking with Shabba — chef-medallion logo" />
+  <meta property="og:url" content="https://cookingwithshabba.co.uk/" />
+
+  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cooking with Shabba | Luxury Private Dining" />
+  <meta name="twitter:description" content="Caribbean cuisine. Premium presentation. Unforgettable events." />
+  <meta name="twitter:image" content="https://cookingwithshabba.co.uk/assets/images/og-image.jpg?v=2" />
+  <meta name="twitter:image:alt" content="Cooking with Shabba — chef-medallion logo" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,37 +51,55 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FoodEstablishment",
-    "@id": "https://cookingwithshabba.co.uk/#business",
-    "name": "Cooking with Shabba",
-    "description": "Luxury private dining and Caribbean cuisine across the UK. Premium presentation and unforgettable events.",
-    "url": "https://cookingwithshabba.co.uk",
-    "image": "https://cookingwithshabba.co.uk/assets/og-image.jpg",
-    "email": "Cookingwithshabba@outlook.com",
-    "servesCuisine": "Caribbean",
-    "priceRange": "£££",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Gloucester",
-      "addressRegion": "England",
-      "addressCountry": "GB"
-    },
-    "areaServed": {
-      "@type": "Country",
-      "name": "United Kingdom"
-    },
-    "makesOffer": {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "Private Dining & Event Catering",
-        "serviceType": "Caribbean private dining"
+    "@graph": [
+      {
+        "@type": "FoodEstablishment",
+        "@id": "https://cookingwithshabba.co.uk/#business",
+        "name": "Cooking with Shabba",
+        "description": "Luxury private dining and Caribbean cuisine across the UK. Premium presentation and unforgettable events.",
+        "url": "https://cookingwithshabba.co.uk/",
+        "image": "https://cookingwithshabba.co.uk/assets/images/og-image.jpg?v=2",
+        "logo": "https://cookingwithshabba.co.uk/assets/images/logo.png",
+        "email": "Cookingwithshabba@outlook.com",
+        "servesCuisine": "Caribbean",
+        "priceRange": "£££",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Gloucester",
+          "addressRegion": "England",
+          "addressCountry": "GB"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.8642,
+          "longitude": -2.2382
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "United Kingdom"
+        },
+        "makesOffer": {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private Dining & Event Catering",
+            "serviceType": "Caribbean private dining"
+          }
+        },
+        "sameAs": [
+          "https://www.instagram.com/cookingwithshabba",
+          "https://www.facebook.com/share/166CYkotxp/?mibextid=wwXIfr",
+          "https://www.tiktok.com/@cookingwithshabba"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://cookingwithshabba.co.uk/#website",
+        "url": "https://cookingwithshabba.co.uk/",
+        "name": "Cooking with Shabba",
+        "inLanguage": "en-GB",
+        "publisher": { "@id": "https://cookingwithshabba.co.uk/#business" }
       }
-    },
-    "sameAs": [
-      "https://www.instagram.com/cookingwithshabba",
-      "https://www.facebook.com/share/166CYkotxp/?mibextid=wwXIfr",
-      "https://www.tiktok.com/@cookingwithshabba"
     ]
   }
   </script>

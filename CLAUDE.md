@@ -230,6 +230,13 @@ in (the site itself still has **no build step**):
   background (`#0A0A0A`) with a gold hairline frame. Borrows `sharp` from the global
   netlify-cli. `node _process-og.cjs`. Overwrites the file — bump `og-image.jpg?v=N`
   in the OG/Twitter/JSON-LD tags afterwards.
+- `_social.cjs` — builds **launch marketing graphics** (not site assets): an Instagram
+  Story (1080×1920) and portrait Post (1080×1350), rendered at 2× via Edge/puppeteer-core
+  so they use the real Cormorant/DM Sans fonts and the `#0A0A0A`/gold palette + film grain.
+  It first screenshots the live hero (needs the local server on `:8000`) into a CSS phone
+  mockup, then composes each card. The Post shows the `cookingwithshabba.co.uk` link; the
+  Story leaves a clear lower band for a link sticker. Both carry a small "Website created
+  by mistuzzo.com" credit. Outputs `_social-{story,post}.png` (gitignored). `node _social.cjs`.
 - `generate-logo.cjs` — rebuilds the hero chef emblem (`assets/images/logo.png`) from
   the source illustration (`shabbaimages/28007cd5-…Shabaka Robinson.jpg`). Detects the
   grey medallion circle (centre/radius are baked into the script), keeps the disc as a

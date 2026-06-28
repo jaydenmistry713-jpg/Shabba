@@ -140,7 +140,10 @@ The enquiry form only works once deployed to Netlify (Netlify Forms processes th
   `animation-play-state` (on hover/focus/tab-hidden). Auto-rotation is disabled under
   `prefers-reduced-motion` (first review stays shown, progress bar hidden). Reviews
   are **real guest quotes** extracted from social DMs, lightly tidied for spelling
-  and anonymised to initials/first name.
+  and anonymised to initials/first name (longer ones condensed to carousel length).
+  There are currently **6** `.review` figures — to add one, just drop another
+  `.review` figure into `#reviews-track` (the dot nav and rotation timing rebuild
+  from the figures automatically; no count to bump).
 - **Hero:** centred stack — the chef logo emblem (`.hero__logo`, `assets/images/logo.png`,
   the illustrated chef badge as a clean grey **medallion** — a transparent circle with
   the chef's face inside and **only his hat protruding from the top**; the rest of the
